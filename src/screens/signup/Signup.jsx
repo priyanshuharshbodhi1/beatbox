@@ -1,17 +1,18 @@
 import React from 'react'
 import styles from "./Signup.module.css"
-// import Logo from "../../assets/images/beatbox-logo.png"
+import LogoComponent from "../../components/logo/Logo"
+import EndContainerComponent from '../../components/endContainer/EndContainer'
 
 const Signup = () => {
   return (
     <>
     <div className={styles.mainContainer}>
         <div className={styles.formContainer}>
-            <div className={styles.logo}> BEATBOX</div>
+            <LogoComponent/>
             <div className={styles.signupForm}></div>
             <div className={styles.loginLink}></div>
         </div>
-        <div className={styles.endContainer}></div>
+        <EndContainerComponent/>
     </div>
     </>
   )
