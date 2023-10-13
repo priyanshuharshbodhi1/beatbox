@@ -1,6 +1,8 @@
 import React from "react";
 import styles from "./Login.module.css";
-import Logo from "../../assets/images/beatbox-logo.png";
+import LogoComponent from "../../components/logo/Logo";
+import EndContainerComponent from "../../components/endContainer/EndContainer";
+
 import { Link } from "react-router-dom";
 
 const Login = () => {
@@ -8,11 +10,7 @@ const Login = () => {
     <>
       <div className={styles.mainContainer}>
         <div className={styles.formContainer}>
-          <div className={styles.logo}>
-            <img src={Logo} alt="Beatbox Logo" />
-            {"  "}
-            BEATBOX
-          </div>
+          <LogoComponent/>
           <div className={styles.signinForm}>
             <form action="/your-action" method="POST">
               <h2 className={styles.title}>Sign in</h2>{" "}
@@ -64,9 +62,7 @@ const Login = () => {
             </button>
           </div>
         </div>
-        <div className={styles.endContainer}>
-          &copy; 2023 BEATBOX | All rights reserved.
-        </div>
+        <EndContainerComponent/>
       </div>
     </>
   );

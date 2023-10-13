@@ -12,26 +12,6 @@ body {
   justify-content: space-between;
 }
 
-.logo {
-  display: flex;
-  align-items: center;
-  color: #2e0052;
-  font-family: "Roboto", sans-serif;
-  font-size: 1.7rem;
-  font-style: normal;
-  font-weight: 600;
-  line-height: normal;
-  text-align: center;
-  width: fit-content;
-  margin: 2rem auto;
-}
-
-.logo img {
-  width: 40px;
-  height: 40px;
-  margin-right: 0.5rem;
-}
-
 .formContainer {
   min-width: 17rem;
   max-width: 23rem;
@@ -107,14 +87,4 @@ body {
   font-weight: 400;
   text-align: initial;
   margin: 0;
-}
-
-
-
-.endContainer {
-  background: #2e0052;
-  color: #fff;
-  text-align: center;
-  padding: 0.7rem;
-  font-size: .85rem;
 }
