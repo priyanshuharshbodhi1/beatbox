@@ -1,12 +1,35 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import Login from './screens/login/Login';
+import SignUp from './screens/signup/Signup';
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Login />,
+  },
+  {
+    path: "/signup",
+    element: <SignUp />,
+  },
+  // {
+  //   path: "/jobfinder",
+  //   element: <JobFinder />,
+  // },
+  // {
+  //   path: "/addjob",
+  //   element: <AddJob />,
+  // },
+  // {
+  //   path: "/viewjob/:jobId",
+  //   element: <ViewJob />,
+  // },
+  
+]);
+
+ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <App />
+    <RouterProvider router={router} />
   </React.StrictMode>
 );
-
