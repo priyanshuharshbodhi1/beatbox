@@ -1,0 +1,124 @@
+.mainContainer {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.topContainer {
+  display: flex;
+  justify-content: space-between;
+  background: #2e0052;
+  color: #fff;
+  text-align: center;
+  padding: 0.6rem 2.5rem;
+  font-size: 0.85rem;
+}
+
+.midContainer {
+  padding: 2rem;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  margin-bottom: auto;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  color: #2e0052;
+  font-family: "Roboto", sans-serif;
+  font-size: 1.2rem;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  text-align: center;
+  width: fit-content;
+  margin: 0;
+}
+
+.logoImage {
+  width: 30px;
+  height: 30px;
+  margin-right: 0.5rem;
+}
+
+.viewCartBtn {
+  border-radius: 2.9375rem;
+  background: #1d7000;
+  border: none;
+  color: white;
+  display: flex;
+  align-items: center;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+.mainImage {
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+  border-radius: 1.2rem;
+  margin: 1rem 0;
+  color: #2e0052;
+  min-height: 10rem;
+  font-size: 2.5rem;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  background: linear-gradient(90deg, #7286b4 0%, #e794ce 100%);
+}
+
+.mainImage img {
+    width: 17rem;
+    height: auto;
+    position: absolute;
+    right: 3rem;
+    bottom: 0;
+}
+
+.buyNowBtn {
+  border-radius: 0.7rem;
+  background: #2e0052;
+  color: #fff;
+  padding: 0.2rem 1rem;
+  border: none;
+  width: fit-content;
+  margin: 0;
+  cursor: pointer;
+}
+
+
+.searchBar > input {
+    padding: 0.6rem;
+    padding-left: 3.5rem;
+    margin: 0.5rem auto;
+    width: 100%;
+    border: 1.8px solid #e3e3e3;
+    border-radius: 2.5rem;
+  }
+  
+  .searchBar > input:focus {
+    border-color: #f59595;
+  }
+  
+  .searchBar > input::placeholder {
+    color: #9c9c9c;
+    font-size: 1rem;
+    font-style: normal;
+    /* padding-left: 1rem; */
+  }
+  
+  .searchBarInput {
+    background-image: url("../../assets/images/search-icon.svg");
+    background-repeat: no-repeat;
+    background-position: 20px center;
+    background-size: 20px 20px;
+  }
+  
+  .searchBar {
+    position: relative;
+  }
+  
