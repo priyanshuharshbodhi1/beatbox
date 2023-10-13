@@ -1,0 +1,87 @@
+.mainContainer {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.formContainer {
+  min-width: 17rem;
+  max-width: 23rem;
+  margin: 1rem auto;
+}
+
+.signupForm {
+  /* min-width: 17rem;
+    max-width: 23rem; */
+  border-radius: 0.5rem;
+  border: 1.5px solid #d9d9d9;
+  background: #fff;
+  padding: 1.6rem;
+  box-sizing: border-box;
+}
+
+.title {
+  color: #000;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 0;
+  font-size: 1.7rem;
+  margin: 0.8rem 0 1.5rem 0;
+}
+
+.label {
+  color: #000;
+  font-size: 0.7rem;
+  font-style: normal;
+  font-weight: 550;
+  line-height: normal;
+}
+
+.input {
+  border-radius: 0.25rem;
+  border: 1.5px solid #d9d9d9;
+  background: #fff;
+  width: -webkit-fill-available;
+  padding: 0.4rem;
+  margin-top: 0.1rem;
+  margin-bottom: 0.4rem;
+}
+
+.continueBtn {
+  border-radius: 0.25rem;
+  background: #2e0052;
+  color: #fff;
+  padding: 0.6rem 0.8rem;
+  border: none;
+  width: -webkit-fill-available;
+  margin: 1rem 0;
+  cursor: pointer;
+}
+
+.signupBtn {
+  border-radius: 0.25rem;
+  background-color: #fff;
+  padding: 0.6rem 0.8rem;
+  border: none;
+  width: -webkit-fill-available;
+  margin: 0rem 0 2rem 0;
+  border-radius: 0.25rem;
+  border: 1.5px solid #d9d9d9;
+  background: #fff;
+}
+
+.terms {
+  color: #000;
+  font-size: 0.7rem;
+  font-style: normal;
+  font-weight: 400;
+  text-align: initial;
+  margin: 0;
+}
+
+.loginLink {
+  font-size: 0.85rem;
+  text-align: center;
+  margin: 1rem 0 0 0;
+}

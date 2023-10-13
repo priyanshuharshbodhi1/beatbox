@@ -13,7 +13,7 @@ const Login = () => {
             {"  "}
             BEATBOX
           </div>
-          <div className={styles.signupForm}>
+          <div className={styles.signinForm}>
             <form action="/your-action" method="POST">
               <h2 className={styles.title}>Sign in</h2>{" "}
               <div>
