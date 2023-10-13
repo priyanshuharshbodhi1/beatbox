@@ -3,10 +3,15 @@ import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Login from './screens/login/Login';
 import SignUp from './screens/signup/Signup';
+import Main from './screens/main/Main';
 
 const router = createBrowserRouter([
   {
     path: "/",
+    element: <Main />,
+  },
+  {
+    path: "/login",
     element: <Login />,
   },
   {

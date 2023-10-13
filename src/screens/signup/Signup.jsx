@@ -72,7 +72,7 @@ const Signup = () => {
           <div className={styles.loginLink}>
             Already have an account?{" "}
             <Link
-              to="/"
+              to="/login"
               style={{ textDecoration: "underline", color: "inherit"}}
             >
               Log In
