@@ -4,8 +4,6 @@ import EndContainerComponent from "../../components/endContainer/EndContainer";
 import PhoneSymbol from "../../assets/images/phone-symbol.png";
 import Logo from "../../assets/images/beatbox-logo.png";
 import FrontImage from "../../assets/images/front-image.png";
-// import SearchIcon from "../../assets/images/search-icon.svg";
-
 import ViewCartSymbol from "../../assets/images/view-cart.svg";
 
 const Main = () => {
@@ -60,7 +58,21 @@ const Main = () => {
               placeholder="Search Product"
             />
           </div>
-          <div className={styles.sortingBar}></div>
+          <div className={styles.sortingBar}>
+            <div className={styles.viewType}>
+                <div className={styles.gridView}></div>
+                <div className={styles.listView}></div>
+            </div>
+            <div className={styles.sortType}>
+                <div className={styles.productType}></div>
+                <div className={styles.company}></div>
+                <div className={styles.color}></div>
+                <div className={styles.price}></div>
+
+            </div>
+            <div className={styles.featuredProductSort}></div>
+
+          </div>
           <div className={styles.productDisplay}></div>
         </div>
         <EndContainerComponent />
