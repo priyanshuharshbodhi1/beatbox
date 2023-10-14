@@ -52,7 +52,7 @@ const Main = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:3500/api/isloggedin")
+      .get(`${process.env.REACT_APP_API_BASE_URL}/api/isloggedin`)
       .then((response) => {
         if (response.data.isLoggedIn) {
           setIsLoggedIn(true);
@@ -67,7 +67,7 @@ const Main = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:3500/products")
+      .get(`${process.env.REACT_APP_API_BASE_URL}/products`)
       .then((response) => {
         if (response.status === 200) {
           setProducts(response.data.slice(0, 15)); // Get the first 15 elements
@@ -79,7 +79,7 @@ const Main = () => {
   }, []);
 
   useEffect(() => {
-    let url = "http://localhost:3500/products?";
+    let url = `${process.env.REACT_APP_API_BASE_URL}/products?`;
     if (selectedType !== "Headphone type") {
       url += `type=${selectedType}`;
     }
@@ -133,7 +133,7 @@ const Main = () => {
     const fetchProducts = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:3500/products/search?search=${searchText}&type=${selectedType}&color=${selectedColor}&company=${selectedCompany}&price_gte=${selectedPrice[0]}&price_lte=${selectedPrice[1]}`
+          `${process.env.REACT_APP_API_BASE_URL}/products/search?search=${searchText}&type=${selectedType}&color=${selectedColor}&company=${selectedCompany}&price_gte=${selectedPrice[0]}&price_lte=${selectedPrice[1]}`
         );
         if (response.status === 200) {
           setProducts(response.data.slice(0, 15)); // Get the first 15 elements
@@ -170,7 +170,7 @@ const Main = () => {
 
   const handleLogout = () => {
     axios
-      .post("http://localhost:3500/api/logout", null, { withCredentials: true })
+      .post(`${process.env.REACT_APP_API_BASE_URL}/api/logout`, null, { withCredentials: true })
       .then((response) => {
         if (response.status === 200) {
           Cookies.remove("jwt");

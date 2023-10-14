@@ -9,7 +9,7 @@ const ViewProduct = () => {
 
   const handleLogout = () => {
     axios
-      .post("http://localhost:3500/api/logout", null, { withCredentials: true })
+      .post(`${process.env.REACT_APP_API_BASE_URL}/api/logout`, null, { withCredentials: true })
       .then((response) => {
         if (response.status === 200) {
           Cookies.remove("jwt");
