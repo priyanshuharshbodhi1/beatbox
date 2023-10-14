@@ -22,12 +22,12 @@ const Main = () => {
     "Sony",
     "Marshall",
     "Beats",
-    "Scullcandy",
+    "Skullcandy",
     "JBL",
   ];
   const colors = ["Color", "Black", "White", "Blue", "Red"];
-  const productTypes = ["Headphone type", "Over-ear", "In-ear", "On-ear"];
-  const prices = ["Price", "₹0-₹5k", "₹5k-₹10k", "₹1k-₹2k", "₹2k-₹3k"];
+  const productTypes = ["Headphone type", "over-ear", "in-ear", "on-ear"];
+  const prices = ["Price", "₹0-₹5k", "₹5k-₹10k", "₹10k-₹20k", "₹20k-₹30k"];
   const sorts = [
     "Sort by:",
     "Featured",
@@ -36,6 +36,10 @@ const Main = () => {
     "A to Z",
     "Z to A",
   ];
+  const [selectedType, setSelectedType] = useState("Headphone type");
+  const [selectedColor, setSelectedColor] = useState("Color");
+  const [selectedCompany, setSelectedCompany] = useState("Company");
+  const [selectedPrice, setSelectedPrice] = useState("Price");
 
   const [products, setProducts] = useState([]);
   const [isGridView, setIsGridView] = useState(true); // Initially set to grid view
@@ -72,6 +76,54 @@ const Main = () => {
         console.error("Error fetching products:", error);
       });
   }, []);
+
+useEffect(() => {
+  let url = "http://localhost:3500/products?";
+  if (selectedType !== "Headphone type") {
+    url += `type=${selectedType}`;
+  }
+  if (selectedColor !== "Color") {
+    if (url.endsWith("?")) {
+      url += `color=${selectedColor}`;
+    } else {
+      url += `&color=${selectedColor}`;
+    }
+  }
+  if (selectedCompany !== "Company") {
+    if (url.endsWith("?")) {
+      url += `company=${selectedCompany}`;
+    } else {
+      url += `&company=${selectedCompany}`;
+    }
+  }
+
+  if (selectedPrice !== "Price") {
+    const priceRange = selectedPrice.split("-").map((p) => {
+      if (p[p.length - 1] === "k") {
+        return parseInt(p.slice(1, -1)) * 1000;
+      }
+      return parseInt(p.slice(1));
+    });
+
+    if (url.endsWith("?")) {
+      url += `price_gte=${priceRange[0]}&price_lte=${priceRange[1]}`;
+    } else {
+      url += `&price_gte=${priceRange[0]}&price_lte=${priceRange[1]}`;
+    }
+  }
+
+  axios
+    .get(url)
+    .then((response) => {
+      if (response.status === 200) {
+        setProducts(response.data.slice(0, 15)); // Get the first 15 elements
+      }
+    })
+    .catch((error) => {
+      console.error("Error fetching products:", error);
+    });
+}, [selectedType, selectedColor, selectedCompany, selectedPrice]);
+
 
   const handleLogout = () => {
     axios
@@ -182,7 +234,7 @@ const Main = () => {
               <div className={styles.productType}>
                 <select
                   className={styles.dropdown}
-                  onChange={(e) => console.log(e.target.value)}
+                  onChange={(e) => setSelectedType(e.target.value)}
                 >
                   {productTypes.map((type, index) => (
                     <option key={index} value={type} className={styles.options}>
@@ -194,7 +246,7 @@ const Main = () => {
               <div className={styles.company}>
                 <select
                   className={styles.dropdown}
-                  onChange={(e) => console.log(e.target.value)}
+                  onChange={(e) => setSelectedCompany(e.target.value)}
                 >
                   {companies.map((company, index) => (
                     <option
@@ -210,7 +262,7 @@ const Main = () => {
               <div className={styles.color}>
                 <select
                   className={styles.dropdown}
-                  onChange={(e) => console.log(e.target.value)}
+                  onChange={(e) => setSelectedColor(e.target.value)}
                 >
                   {colors.map((color, index) => (
                     <option
@@ -226,7 +278,7 @@ const Main = () => {
               <div className={styles.price}>
                 <select
                   className={styles.dropdown}
-                  onChange={(e) => console.log(e.target.value)}
+                  onChange={(e) => setSelectedPrice(e.target.value)}
                 >
                   {prices.map((price, index) => (
                     <option
