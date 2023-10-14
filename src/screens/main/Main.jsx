@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Cookies from "js-cookie";
 import styles from "./Main.module.css";
@@ -10,9 +10,29 @@ import ViewCartSymbol from "../../assets/images/view-cart.svg";
 import { Link } from "react-router-dom";
 
 const Main = () => {
-
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   // const [userName, setUserName] = useState("");
+  const companies = [
+    "Company",
+    "boAt",
+    "Bose",
+    "Sony",
+    "Marshall",
+    "Beats",
+    "Scullcandy",
+    "JBL",
+  ];
+  const colors = ["Color", "Black", "White", "Blue", "Red"];
+  const productTypes = ["Headphone type", "Over-ear", "In-ear", "On-ear"];
+  const prices = ["Price", "₹0-₹5k", "₹5k-₹10k", "₹1k-₹2k", "₹2k-₹3k"];
+  const sorts = [
+    "Sort by:",
+    "Featured",
+    "Lowest",
+    "Highest",
+    "A to Z)",
+    "Z to A)",
+  ];
 
   useEffect(() => {
     axios
@@ -65,12 +85,12 @@ const Main = () => {
           <div>
             {isLoggedIn ? (
               <Link
-              to="/login"
-              style={{ textDecoration: "none", color: "inherit" }}
-              onClick={handleLogout}
-            >
-              Logout
-            </Link>
+                to="/login"
+                style={{ textDecoration: "none", color: "inherit" }}
+                onClick={handleLogout}
+              >
+                Logout
+              </Link>
             ) : (
               <>
                 <Link
@@ -126,16 +146,84 @@ const Main = () => {
           </div>
           <div className={styles.sortingBar}>
             <div className={styles.viewType}>
-              <div className={styles.gridView}></div>
-              <div className={styles.listView}></div>
+              <div className={styles.gridView}>G</div>
+              <div className={styles.listView}>H</div>
             </div>
             <div className={styles.sortType}>
-              <div className={styles.productType}></div>
-              <div className={styles.company}></div>
-              <div className={styles.color}></div>
-              <div className={styles.price}></div>
+              <div className={styles.productType}>
+                <select
+                  className={styles.dropdown}
+                  onChange={(e) => console.log(e.target.value)}
+                >
+                  {productTypes.map((type, index) => (
+                    <option key={index} value={type} className={styles.options}>
+                      {type}
+                    </option>
+                  ))}
+                </select>
+              </div>
+              <div className={styles.company}>
+                <select
+                  className={styles.dropdown}
+                  onChange={(e) => console.log(e.target.value)}
+                >
+                  {companies.map((company, index) => (
+                    <option
+                      key={index}
+                      value={company}
+                      className={styles.options}
+                    >
+                      {company}
+                    </option>
+                  ))}
+                </select>
+              </div>
+              <div className={styles.color}>
+                <select
+                  className={styles.dropdown}
+                  onChange={(e) => console.log(e.target.value)}
+                >
+                  {colors.map((color, index) => (
+                    <option
+                      key={index}
+                      value={color}
+                      className={styles.options}
+                    >
+                      {color}
+                    </option>
+                  ))}
+                </select>
+              </div>
+              <div className={styles.price}>
+                <select
+                  className={styles.dropdown}
+                  onChange={(e) => console.log(e.target.value)}
+                >
+                  {prices.map((price, index) => (
+                    <option
+                      key={index}
+                      value={price}
+                      className={styles.options}
+                    >
+                      {price}
+                    </option>
+                  ))}
+                </select>
+              </div>
             </div>
-            <div className={styles.featuredProductSort}></div>
+            <div className={styles.productSort}>
+              <select
+                className={styles.dropdown}
+                onChange={(e) => console.log(e.target.value)}
+                style={{ background: "#fefefe" }}
+              >
+                {sorts.map((sort, index) => (
+                  <option key={index} value={sort} className={styles.options}>
+                    {sort}
+                  </option>
+                ))}
+              </select>
+            </div>
           </div>
           <div className={styles.productDisplay}></div>
         </div>
