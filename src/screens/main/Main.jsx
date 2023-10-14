@@ -9,6 +9,7 @@ import PhoneSymbol from "../../assets/images/phone-symbol.png";
 import Logo from "../../assets/images/beatbox-logo.png";
 import FrontImage from "../../assets/images/front-image.png";
 import ViewCartSymbol from "../../assets/images/view-cart.svg";
+import AddToCartIcon from "../../assets/images/addtocart-icon.svg";
 import { Link } from "react-router-dom";
 
 const Main = () => {
@@ -276,20 +277,25 @@ const Main = () => {
             </div> */}
             <div className={styles.listDisplay}>
               {products.map((product) => (
-                <div key={product._id} className={styles.productsList}>
+                <div key={product._id} className={styles.productItem}>
                   <div
                     className={styles.productImage}
                     style={{ backgroundImage: `url(${product.images["1"]})` }}
-                  ></div>
-                  <div>
-                    <div className={styles.name}>{product.name}</div>
-                    <div className={styles.price}>{product.price}</div>
-                    <div>
-                      <div className={styles.color}>{product.color}</div> |
-                      <div className={styles.type}>{product.type}</div>
+                  >
+                    <img
+                      src={AddToCartIcon}
+                      alt=""
+                      className={styles.addToCartIcon}
+                    />
+                  </div>
+                  <div className={styles.productDetails}>
+                    <div className={styles.productName}>{product.name}</div>
+                    <div className={styles.productPrice}>Price - Rs.{product.price}</div>
+                    <div className={styles.productColorAndType}>
+                      {product.color} | {product.type}
                     </div>
-                    <div className={styles.tagline}>{product.tagline}</div>
-                    <button className={styles.details}>Details</button>
+                    <div className={styles.ProductTagline}>{product.tagline}</div>
+                    <button className={styles.productDetailsBtn}>Details</button>
                   </div>
                 </div>
               ))}
