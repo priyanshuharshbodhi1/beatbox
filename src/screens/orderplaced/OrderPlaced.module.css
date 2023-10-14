@@ -1,0 +1,39 @@
+.container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.successCard {
+  margin-right: auto;
+  border-radius: 0.6875rem;
+  border: 3px solid #e3e3e3;
+  background: #fff;
+  box-shadow: 14px 16px 23px 2px rgba(0, 0, 0, 0.11);
+  min-width: 20rem;
+  width: fit-content;
+  text-align: center;
+  padding: 2rem;
+  margin-left: auto;
+}
+
+.confetti{
+    width: 90px;
+}
+
+.tagline {
+  color: #000;
+  font-size: 1.6rem;
+  font-weight: 600;
+}
+
+.homePageBtn {
+  border-radius: 0.4rem;
+  background: #2e0052;
+  color: white;
+  border: none;
+  padding: 9px 15px;
+  width: fit-content;
+  cursor: pointer;
+}
