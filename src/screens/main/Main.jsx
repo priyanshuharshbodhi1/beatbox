@@ -40,7 +40,7 @@ const Main = () => {
   const [selectedColor, setSelectedColor] = useState("Color");
   const [selectedCompany, setSelectedCompany] = useState("Company");
   const [selectedPrice, setSelectedPrice] = useState("Price");
-  const [searchText, setSearchText] = useState('');
+  const [searchText, setSearchText] = useState("");
 
   const [products, setProducts] = useState([]);
   const [isGridView, setIsGridView] = useState(true); // Initially set to grid view
@@ -145,8 +145,6 @@ const Main = () => {
     fetchProducts();
   }, [searchText, selectedType, selectedColor, selectedCompany, selectedPrice]);
 
-
-
   const sortProducts = (sortBy) => {
     const sortedProducts = [...products];
     switch (sortBy) {
@@ -170,7 +168,9 @@ const Main = () => {
 
   const handleLogout = () => {
     axios
-      .post(`${process.env.REACT_APP_API_BASE_URL}/api/logout`, null, { withCredentials: true })
+      .post(`${process.env.REACT_APP_API_BASE_URL}/api/logout`, null, {
+        withCredentials: true,
+      })
       .then((response) => {
         if (response.status === 200) {
           Cookies.remove("jwt");
@@ -257,14 +257,14 @@ const Main = () => {
             <img src={FrontImage} alt="" className={styles.FrontImage} />
           </div>
           <div className={styles.searchBar}>
-        <input
-          type="search"
-          className={styles.searchBarInput}
-          placeholder="Search Product"
-          value={searchText}
-          onChange={handleSearch}
-        />
-      </div>
+            <input
+              type="search"
+              className={styles.searchBarInput}
+              placeholder="Search Product"
+              value={searchText}
+              onChange={handleSearch}
+            />
+          </div>
           <div className={styles.sortingBar}>
             <div className={styles.viewType}>
               <div className={styles.viewIcon} onClick={toggleView}>
@@ -358,64 +358,72 @@ const Main = () => {
           >
             {isGridView
               ? products.map((product) => (
-                  <div key={product._id} className={styles.productsGrid}>
-                    <div
-                      className={styles.productImage}
-                      style={{ backgroundImage: `url(${product.images["1"]})` }}
-                    >
-                      <img
-                        src={AddToCartIcon}
-                        alt=""
-                        className={styles.addToCartIcon}
-                      />
-                    </div>
-                    <div
-                      className={`${styles.productDetailsForGrid} ${styles.productDetails} `}
-                    >
+                  <Link to={`/product/${product._id}`} key={product._id}>
+                    <div className={styles.productsGrid}>
                       <div
-                        className={`${styles.productName} ${styles.productNameForGrid}`}
+                        className={styles.productImage}
+                        style={{
+                          backgroundImage: `url(${product.images["1"]})`,
+                        }}
                       >
-                        {product.name}
+                        <img
+                          src={AddToCartIcon}
+                          alt=""
+                          className={styles.addToCartIcon}
+                        />
                       </div>
-                      <div className={styles.productPrice}>
-                        Price - &#x20B9;
-                        {parseInt(product.price).toLocaleString("en-IN")}
-                      </div>
-                      <div className={styles.productColorAndType}>
-                        {product.color} | {product.type}
+                      <div
+                        className={`${styles.productDetailsForGrid} ${styles.productDetails} `}
+                      >
+                        <div
+                          className={`${styles.productName} ${styles.productNameForGrid}`}
+                        >
+                          {product.name}
+                        </div>
+                        <div className={styles.productPrice}>
+                          Price - &#x20B9;
+                          {parseInt(product.price).toLocaleString("en-IN")}
+                        </div>
+                        <div className={styles.productColorAndType}>
+                          {product.color} | {product.type}
+                        </div>
                       </div>
                     </div>
-                  </div>
+                  </Link>
                 ))
               : products.map((product) => (
-                  <div key={product._id} className={styles.productItem}>
-                    <div
-                      className={styles.productImage}
-                      style={{ backgroundImage: `url(${product.images["1"]})` }}
-                    >
-                      <img
-                        src={AddToCartIcon}
-                        alt=""
-                        className={styles.addToCartIcon}
-                      />
+                  <Link to={`/product/${product._id}`} key={product._id}>
+                    <div className={styles.productItem}>
+                      <div
+                        className={styles.productImage}
+                        style={{
+                          backgroundImage: `url(${product.images["1"]})`,
+                        }}
+                      >
+                        <img
+                          src={AddToCartIcon}
+                          alt=""
+                          className={styles.addToCartIcon}
+                        />
+                      </div>
+                      <div className={styles.productDetails}>
+                        <div className={styles.productName}>{product.name}</div>
+                        <div className={styles.productPrice}>
+                          Price - &#x20B9;
+                          {parseInt(product.price).toLocaleString("en-IN")}
+                        </div>
+                        <div className={styles.productColorAndType}>
+                          {product.color} | {product.type}
+                        </div>
+                        <div className={styles.ProductTagline}>
+                          {product.tagline}
+                        </div>
+                        <button className={styles.productDetailsBtn}>
+                          Details
+                        </button>
+                      </div>
                     </div>
-                    <div className={styles.productDetails}>
-                      <div className={styles.productName}>{product.name}</div>
-                      <div className={styles.productPrice}>
-                        Price - &#x20B9;
-                        {parseInt(product.price).toLocaleString("en-IN")}
-                      </div>
-                      <div className={styles.productColorAndType}>
-                        {product.color} | {product.type}
-                      </div>
-                      <div className={styles.ProductTagline}>
-                        {product.tagline}
-                      </div>
-                      <button className={styles.productDetailsBtn}>
-                        Details
-                      </button>
-                    </div>
-                  </div>
+                  </Link>
                 ))}
           </div>
         </div>

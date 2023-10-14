@@ -20,18 +20,9 @@ const router = createBrowserRouter([
     element: <SignUp />,
   },
   {
-    path: "/viewproduct",
+    path: "/viewproduct/:productId",
     element: <ViewProduct />,
   },
-  // {
-  //   path: "/addjob",
-  //   element: <AddJob />,
-  // },
-  // {
-  //   path: "/viewjob/:jobId",
-  //   element: <ViewJob />,
-  // },
-  
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(
