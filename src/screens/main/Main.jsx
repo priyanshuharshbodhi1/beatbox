@@ -36,6 +36,7 @@ const Main = () => {
     "Z to A)",
   ];
 
+  const [products, setProducts] = useState([]);
   const [isGridView, setIsGridView] = useState(true); // Initially set to grid view
 
   // Function to toggle between grid and list view
@@ -55,6 +56,19 @@ const Main = () => {
       })
       .catch((error) => {
         console.error("Error checking login status: ", error);
+      });
+  }, []);
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:3500/products")
+      .then((response) => {
+        if (response.status === 200) {
+          setProducts(response.data.slice(0, 15)); // Get the first 15 elements
+        }
+      })
+      .catch((error) => {
+        console.error("Error fetching products:", error);
       });
   }, []);
 
@@ -162,7 +176,6 @@ const Main = () => {
                   <FontAwesomeIcon icon={faList} size="2x" />
                 )}
               </div>
-              {/* ... (Other components) */}
             </div>
             <div className={styles.sortType}>
               <div className={styles.productType}>
@@ -240,7 +253,48 @@ const Main = () => {
               </select>
             </div>
           </div>
-          <div className={styles.productDisplay}></div>
+          <div className={styles.productDisplay}>
+            {/* <div className={styles.gridDisplay}>
+              {products.map((product) => (
+                <div key={product._id} className={styles.productsGrid}>
+                  <div
+                    className={styles.productImage}
+                    style={{ backgroundImage: `url(${product.images["1"]})` }}
+                  ></div>
+                  <div>
+                    <div className={styles.name}>{product.name}</div>
+                    <div className={styles.price}>{product.price}</div>
+                    <div>
+                      <div className={styles.color}>{product.color}</div> |
+                      <div className={styles.type}>{product.type}</div>
+                    </div>
+                    <div className={styles.tagline}>{product.tagline}</div>
+                    <button className={styles.details}>Details</button>
+                  </div>
+                </div>
+              ))}
+            </div> */}
+            <div className={styles.listDisplay}>
+              {products.map((product) => (
+                <div key={product._id} className={styles.productsList}>
+                  <div
+                    className={styles.productImage}
+                    style={{ backgroundImage: `url(${product.images["1"]})` }}
+                  ></div>
+                  <div>
+                    <div className={styles.name}>{product.name}</div>
+                    <div className={styles.price}>{product.price}</div>
+                    <div>
+                      <div className={styles.color}>{product.color}</div> |
+                      <div className={styles.type}>{product.type}</div>
+                    </div>
+                    <div className={styles.tagline}>{product.tagline}</div>
+                    <button className={styles.details}>Details</button>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
         <EndContainerComponent />
       </div>
