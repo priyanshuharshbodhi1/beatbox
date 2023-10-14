@@ -1,0 +1,39 @@
+.header {
+  display: flex;
+  align-items: center;
+  margin-bottom: auto;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  color: #2e0052;
+  font-family: "Roboto", sans-serif;
+  font-size: 1.2rem;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  text-align: center;
+  width: fit-content;
+  margin: 0;
+}
+
+.logoImage {
+  width: 30px;
+  height: 30px;
+  margin-right: 0.5rem;
+}
+
+.backToProductsBtn {
+  border-radius: 0.875rem;
+  background: #2e0052;
+  border: none;
+  cursor: pointer;
+  color: white;
+  padding: 7px 14px;
+  width: fit-content;
+}
+
+.midContainer{
+  padding: 1rem 6rem;
+}
