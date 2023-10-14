@@ -1,4 +1,6 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
+import axios from "axios";
+import Cookies from "js-cookie";
 import styles from "./Main.module.css";
 import EndContainerComponent from "../../components/endContainer/EndContainer";
 import PhoneSymbol from "../../assets/images/phone-symbol.png";
@@ -8,6 +10,41 @@ import ViewCartSymbol from "../../assets/images/view-cart.svg";
 import { Link } from "react-router-dom";
 
 const Main = () => {
+
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  // const [userName, setUserName] = useState("");
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:3500/api/isloggedin")
+      .then((response) => {
+        if (response.data.isLoggedIn) {
+          setIsLoggedIn(true);
+          // setUserName(response.data.name);
+          console.log(response.data.isLoggedIn);
+        }
+      })
+      .catch((error) => {
+        console.error("Error checking login status: ", error);
+      });
+  }, []);
+
+  const handleLogout = () => {
+    axios
+      .post("http://localhost:3500/api/logout", null, { withCredentials: true })
+      .then((response) => {
+        if (response.status === 200) {
+          Cookies.remove("jwt");
+          setIsLoggedIn(false);
+          console.log("User is logged out");
+          // history.push("/login"); // Navigate to /login
+        }
+      })
+      .catch((error) => {
+        console.error("Error during logout:", error);
+      });
+  };
+
   return (
     <>
       <div className={styles.mainContainer}>
@@ -26,18 +63,31 @@ const Main = () => {
           </div>
           <div>Get 50% off on selected items | Shop Now</div>
           <div>
-            <Link
+            {isLoggedIn ? (
+              <Link
               to="/login"
               style={{ textDecoration: "none", color: "inherit" }}
+              onClick={handleLogout}
             >
-              Log In
-            </Link>{" "}
-            |  <Link
-              to="/signup"
-              style={{ textDecoration: "none", color: "inherit" }}
-            >
-              Sign Up
+              Logout
             </Link>
+            ) : (
+              <>
+                <Link
+                  to="/login"
+                  style={{ textDecoration: "none", color: "inherit" }}
+                >
+                  Log In
+                </Link>{" "}
+                |{" "}
+                <Link
+                  to="/signup"
+                  style={{ textDecoration: "none", color: "inherit" }}
+                >
+                  Sign Up
+                </Link>
+              </>
+            )}
           </div>
         </div>
         <div className={styles.midContainer}>
