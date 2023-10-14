@@ -3,13 +3,17 @@ import axios from "axios";
 import Cookies from "js-cookie";
 import styles from "./ViewProduct.module.css";
 import TopContainer from "../../components/topcontainer/TopContainer";
+import EndContainerComponent from "../../components/endContainer/EndContainer";
+import HeaderComponent from "../../components/header/Header";
 
 const ViewProduct = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const handleLogout = () => {
     axios
-      .post(`${process.env.REACT_APP_API_BASE_URL}/api/logout`, null, { withCredentials: true })
+      .post(`${process.env.REACT_APP_API_BASE_URL}/api/logout`, null, {
+        withCredentials: true,
+      })
       .then((response) => {
         if (response.status === 200) {
           Cookies.remove("jwt");
@@ -24,8 +28,15 @@ const ViewProduct = () => {
   };
   return (
     <>
-    <div className={styles.topContainer}></div>
-      <TopContainer isLoggedIn={isLoggedIn} handleLogout={handleLogout} />
+      <div className={styles.topContainer}>
+        <TopContainer isLoggedIn={isLoggedIn} handleLogout={handleLogout} />
+      </div>
+      <div className={styles.midContainer}>
+        <HeaderComponent />
+      </div>
+      <div className={styles.endContainer}>
+        <EndContainerComponent />
+      </div>
     </>
   );
 };

@@ -1,0 +1,37 @@
+.header {
+    display: flex;
+    align-items: center;
+    margin-bottom: auto;
+  }
+  
+  .logo {
+    display: flex;
+    align-items: center;
+    color: #2e0052;
+    font-family: "Roboto", sans-serif;
+    font-size: 1.2rem;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    text-align: center;
+    width: fit-content;
+    margin: 0;
+  }
+  
+  .logoImage {
+    width: 30px;
+    height: 30px;
+    margin-right: 0.5rem;
+  }
+  
+  .viewCartBtn {
+    border-radius: 2.9375rem;
+    background: #1d7000;
+    border: none;
+    color: white;
+    display: flex;
+    align-items: center;
+    padding: 5px 10px;
+    cursor: pointer;
+  }
+  
