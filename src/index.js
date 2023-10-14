@@ -5,6 +5,9 @@ import Login from './screens/login/Login';
 import SignUp from './screens/signup/Signup';
 import Main from './screens/main/Main';
 import ViewProduct from './screens/viewproduct/ViewProduct';
+import ViewCart from './screens/viewcart/ViewCart';
+import Checkout from './screens/checkout/Checkout';
+import OrderPlaced from './screens/orderplaced/OrderPlaced';
 
 const router = createBrowserRouter([
   {
@@ -23,6 +26,19 @@ const router = createBrowserRouter([
     path: "/viewproduct/:productId",
     element: <ViewProduct />,
   },
+  {
+    path: "/viewcart",
+    element: <ViewCart />,
+  },
+  {
+    path: "/checkout",
+    element: <Checkout />,
+  },
+  {
+    path: "/orderplaced",
+    element: <OrderPlaced />,
+  },
+  
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(
