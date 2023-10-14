@@ -33,8 +33,8 @@ const Main = () => {
     "Featured",
     "Lowest",
     "Highest",
-    "A to Z)",
-    "Z to A)",
+    "A to Z",
+    "Z to A",
   ];
 
   const [products, setProducts] = useState([]);
@@ -255,26 +255,29 @@ const Main = () => {
             </div>
           </div>
           <div className={styles.productDisplay}>
-            {/* <div className={styles.gridDisplay}>
+            <div className={styles.gridDisplay}>
               {products.map((product) => (
                 <div key={product._id} className={styles.productsGrid}>
                   <div
                     className={styles.productImage}
                     style={{ backgroundImage: `url(${product.images["1"]})` }}
-                  ></div>
-                  <div>
-                    <div className={styles.name}>{product.name}</div>
-                    <div className={styles.price}>{product.price}</div>
-                    <div>
-                      <div className={styles.color}>{product.color}</div> |
-                      <div className={styles.type}>{product.type}</div>
+                  >
+                    <img
+                      src={AddToCartIcon}
+                      alt=""
+                      className={styles.addToCartIcon}
+                    />
+                  </div>
+                   <div className={`${styles.productDetailsForGrid} ${styles.productDetails} `}>
+                    <div className={`${styles.productName} ${styles.productNameForGrid}`}>{product.name}</div>
+                    <div className={styles.productPrice}>Price - Rs.{product.price}</div>
+                    <div className={styles.productColorAndType}>
+                      {product.color} | {product.type}
                     </div>
-                    <div className={styles.tagline}>{product.tagline}</div>
-                    <button className={styles.details}>Details</button>
                   </div>
                 </div>
               ))}
-            </div> */}
+            </div>
             <div className={styles.listDisplay}>
               {products.map((product) => (
                 <div key={product._id} className={styles.productItem}>
