@@ -40,6 +40,7 @@ const Main = () => {
   const [selectedColor, setSelectedColor] = useState("Color");
   const [selectedCompany, setSelectedCompany] = useState("Company");
   const [selectedPrice, setSelectedPrice] = useState("Price");
+  const [searchText, setSearchText] = useState('');
 
   const [products, setProducts] = useState([]);
   const [isGridView, setIsGridView] = useState(true); // Initially set to grid view
@@ -123,6 +124,28 @@ const Main = () => {
         console.error("Error fetching products:", error);
       });
   }, [selectedType, selectedColor, selectedCompany, selectedPrice]);
+
+  const handleSearch = (event) => {
+    setSearchText(event.target.value);
+  };
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const response = await axios.get(
+          `http://localhost:3500/products/search?search=${searchText}&type=${selectedType}&color=${selectedColor}&company=${selectedCompany}&price_gte=${selectedPrice[0]}&price_lte=${selectedPrice[1]}`
+        );
+        if (response.status === 200) {
+          setProducts(response.data.slice(0, 15)); // Get the first 15 elements
+        }
+      } catch (error) {
+        console.error("Error fetching products:", error);
+      }
+    };
+    fetchProducts();
+  }, [searchText, selectedType, selectedColor, selectedCompany, selectedPrice]);
+
+
 
   const sortProducts = (sortBy) => {
     const sortedProducts = [...products];
@@ -234,12 +257,14 @@ const Main = () => {
             <img src={FrontImage} alt="" className={styles.FrontImage} />
           </div>
           <div className={styles.searchBar}>
-            <input
-              type="search"
-              className={styles.searchBarInput}
-              placeholder="Search Product"
-            />
-          </div>
+        <input
+          type="search"
+          className={styles.searchBarInput}
+          placeholder="Search Product"
+          value={searchText}
+          onChange={handleSearch}
+        />
+      </div>
           <div className={styles.sortingBar}>
             <div className={styles.viewType}>
               <div className={styles.viewIcon} onClick={toggleView}>
