@@ -254,55 +254,72 @@ const Main = () => {
               </select>
             </div>
           </div>
-          <div className={styles.productDisplay}>
-            <div className={styles.gridDisplay}>
-              {products.map((product) => (
-                <div key={product._id} className={styles.productsGrid}>
-                  <div
-                    className={styles.productImage}
-                    style={{ backgroundImage: `url(${product.images["1"]})` }}
-                  >
-                    <img
-                      src={AddToCartIcon}
-                      alt=""
-                      className={styles.addToCartIcon}
-                    />
-                  </div>
-                   <div className={`${styles.productDetailsForGrid} ${styles.productDetails} `}>
-                    <div className={`${styles.productName} ${styles.productNameForGrid}`}>{product.name}</div>
-                    <div className={styles.productPrice}>Price - Rs.{product.price}</div>
-                    <div className={styles.productColorAndType}>
-                      {product.color} | {product.type}
+          <div
+            className={`${styles.productDisplay} ${
+              isGridView ? styles.gridDisplay : styles.listDisplay
+            }`}
+          >
+            {isGridView
+              ? products.map((product) => (
+                  <div key={product._id} className={styles.productsGrid}>
+                    <div
+                      className={styles.productImage}
+                      style={{ backgroundImage: `url(${product.images["1"]})` }}
+                    >
+                      <img
+                        src={AddToCartIcon}
+                        alt=""
+                        className={styles.addToCartIcon}
+                      />
+                    </div>
+                    <div
+                      className={`${styles.productDetailsForGrid} ${styles.productDetails} `}
+                    >
+                      <div
+                        className={`${styles.productName} ${styles.productNameForGrid}`}
+                      >
+                        {product.name}
+                      </div>
+                      <div className={styles.productPrice}>
+                        Price - &#x20B9;
+                        {parseInt(product.price).toLocaleString("en-IN")}
+                      </div>
+                      <div className={styles.productColorAndType}>
+                        {product.color} | {product.type}
+                      </div>
                     </div>
                   </div>
-                </div>
-              ))}
-            </div>
-            <div className={styles.listDisplay}>
-              {products.map((product) => (
-                <div key={product._id} className={styles.productItem}>
-                  <div
-                    className={styles.productImage}
-                    style={{ backgroundImage: `url(${product.images["1"]})` }}
-                  >
-                    <img
-                      src={AddToCartIcon}
-                      alt=""
-                      className={styles.addToCartIcon}
-                    />
-                  </div>
-                  <div className={styles.productDetails}>
-                    <div className={styles.productName}>{product.name}</div>
-                    <div className={styles.productPrice}>Price - Rs.{product.price}</div>
-                    <div className={styles.productColorAndType}>
-                      {product.color} | {product.type}
+                ))
+              : products.map((product) => (
+                  <div key={product._id} className={styles.productItem}>
+                    <div
+                      className={styles.productImage}
+                      style={{ backgroundImage: `url(${product.images["1"]})` }}
+                    >
+                      <img
+                        src={AddToCartIcon}
+                        alt=""
+                        className={styles.addToCartIcon}
+                      />
                     </div>
-                    <div className={styles.ProductTagline}>{product.tagline}</div>
-                    <button className={styles.productDetailsBtn}>Details</button>
+                    <div className={styles.productDetails}>
+                      <div className={styles.productName}>{product.name}</div>
+                      <div className={styles.productPrice}>
+                        Price - &#x20B9;
+                        {parseInt(product.price).toLocaleString("en-IN")}
+                      </div>
+                      <div className={styles.productColorAndType}>
+                        {product.color} | {product.type}
+                      </div>
+                      <div className={styles.ProductTagline}>
+                        {product.tagline}
+                      </div>
+                      <button className={styles.productDetailsBtn}>
+                        Details
+                      </button>
+                    </div>
                   </div>
-                </div>
-              ))}
-            </div>
+                ))}
           </div>
         </div>
         <EndContainerComponent />
