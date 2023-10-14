@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Cookies from "js-cookie";
 import styles from "./Main.module.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faGrip, faList } from "@fortawesome/free-solid-svg-icons";
 import EndContainerComponent from "../../components/endContainer/EndContainer";
 import PhoneSymbol from "../../assets/images/phone-symbol.png";
 import Logo from "../../assets/images/beatbox-logo.png";
@@ -33,6 +35,13 @@ const Main = () => {
     "A to Z)",
     "Z to A)",
   ];
+
+  const [isGridView, setIsGridView] = useState(true); // Initially set to grid view
+
+  // Function to toggle between grid and list view
+  const toggleView = () => {
+    setIsGridView(!isGridView);
+  };
 
   useEffect(() => {
     axios
@@ -146,8 +155,14 @@ const Main = () => {
           </div>
           <div className={styles.sortingBar}>
             <div className={styles.viewType}>
-              <div className={styles.gridView}>G</div>
-              <div className={styles.listView}>H</div>
+              <div className={styles.viewIcon} onClick={toggleView}>
+                {isGridView ? (
+                  <FontAwesomeIcon icon={faGrip} size="2x" />
+                ) : (
+                  <FontAwesomeIcon icon={faList} size="2x" />
+                )}
+              </div>
+              {/* ... (Other components) */}
             </div>
             <div className={styles.sortType}>
               <div className={styles.productType}>

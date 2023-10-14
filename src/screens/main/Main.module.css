@@ -139,6 +139,11 @@
 .viewType {
   display: flex;
   gap: 1rem;
+  cursor: -webkit-grab;
+}
+
+.viewIcon{
+    min-width: 2rem;
 }
 
 .sortType {
