@@ -30,9 +30,9 @@ const Main = () => {
   const prices = ["Price", "₹0-₹5k", "₹5k-₹10k", "₹10k-₹20k", "₹20k-₹30k"];
   const sorts = [
     "Sort by:",
-    "Featured",
-    "Lowest",
-    "Highest",
+    // "Featured",
+    "Low to High",
+    "High to Low",
     "A to Z",
     "Z to A",
   ];
@@ -77,53 +77,73 @@ const Main = () => {
       });
   }, []);
 
-useEffect(() => {
-  let url = "http://localhost:3500/products?";
-  if (selectedType !== "Headphone type") {
-    url += `type=${selectedType}`;
-  }
-  if (selectedColor !== "Color") {
-    if (url.endsWith("?")) {
-      url += `color=${selectedColor}`;
-    } else {
-      url += `&color=${selectedColor}`;
+  useEffect(() => {
+    let url = "http://localhost:3500/products?";
+    if (selectedType !== "Headphone type") {
+      url += `type=${selectedType}`;
     }
-  }
-  if (selectedCompany !== "Company") {
-    if (url.endsWith("?")) {
-      url += `company=${selectedCompany}`;
-    } else {
-      url += `&company=${selectedCompany}`;
-    }
-  }
-
-  if (selectedPrice !== "Price") {
-    const priceRange = selectedPrice.split("-").map((p) => {
-      if (p[p.length - 1] === "k") {
-        return parseInt(p.slice(1, -1)) * 1000;
+    if (selectedColor !== "Color") {
+      if (url.endsWith("?")) {
+        url += `color=${selectedColor}`;
+      } else {
+        url += `&color=${selectedColor}`;
       }
-      return parseInt(p.slice(1));
-    });
-
-    if (url.endsWith("?")) {
-      url += `price_gte=${priceRange[0]}&price_lte=${priceRange[1]}`;
-    } else {
-      url += `&price_gte=${priceRange[0]}&price_lte=${priceRange[1]}`;
     }
-  }
-
-  axios
-    .get(url)
-    .then((response) => {
-      if (response.status === 200) {
-        setProducts(response.data.slice(0, 15)); // Get the first 15 elements
+    if (selectedCompany !== "Company") {
+      if (url.endsWith("?")) {
+        url += `company=${selectedCompany}`;
+      } else {
+        url += `&company=${selectedCompany}`;
       }
-    })
-    .catch((error) => {
-      console.error("Error fetching products:", error);
-    });
-}, [selectedType, selectedColor, selectedCompany, selectedPrice]);
+    }
 
+    if (selectedPrice !== "Price") {
+      const priceRange = selectedPrice.split("-").map((p) => {
+        if (p[p.length - 1] === "k") {
+          return parseInt(p.slice(1, -1)) * 1000;
+        }
+        return parseInt(p.slice(1));
+      });
+
+      if (url.endsWith("?")) {
+        url += `price_gte=${priceRange[0]}&price_lte=${priceRange[1]}`;
+      } else {
+        url += `&price_gte=${priceRange[0]}&price_lte=${priceRange[1]}`;
+      }
+    }
+
+    axios
+      .get(url)
+      .then((response) => {
+        if (response.status === 200) {
+          setProducts(response.data.slice(0, 15)); // Get the first 15 elements
+        }
+      })
+      .catch((error) => {
+        console.error("Error fetching products:", error);
+      });
+  }, [selectedType, selectedColor, selectedCompany, selectedPrice]);
+
+  const sortProducts = (sortBy) => {
+    const sortedProducts = [...products];
+    switch (sortBy) {
+      case "Low to High":
+        sortedProducts.sort((a, b) => a.price - b.price);
+        break;
+      case "High to Low":
+        sortedProducts.sort((a, b) => b.price - a.price);
+        break;
+      case "A to Z":
+        sortedProducts.sort((a, b) => a.name.localeCompare(b.name));
+        break;
+      case "Z to A":
+        sortedProducts.sort((a, b) => b.name.localeCompare(a.name));
+        break;
+      default:
+        break;
+    }
+    setProducts(sortedProducts);
+  };
 
   const handleLogout = () => {
     axios
@@ -295,7 +315,7 @@ useEffect(() => {
             <div className={styles.productSort}>
               <select
                 className={styles.dropdown}
-                onChange={(e) => console.log(e.target.value)}
+                onChange={(e) => sortProducts(e.target.value)}
                 style={{ background: "#fefefe" }}
               >
                 {sorts.map((sort, index) => (
