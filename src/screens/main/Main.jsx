@@ -52,12 +52,14 @@ const Main = () => {
 
   useEffect(() => {
     axios
-      .get(`${process.env.REACT_APP_API_BASE_URL}/api/isloggedin`)
+      .get(`${process.env.REACT_APP_API_BASE_URL}/api/isloggedin`,{
+        withCredentials: true,
+      })
       .then((response) => {
         if (response.data.isLoggedIn) {
           setIsLoggedIn(true);
           // setUserName(response.data.name);
-          console.log(response.data.isLoggedIn);
+          console.log(response.data);
         }
       })
       .catch((error) => {
