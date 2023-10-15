@@ -2,7 +2,8 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Cookies from "js-cookie";
 import { useParams } from "react-router-dom";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
+import ImageSlider from "react-simple-image-slider";
 import styles from "./ViewProduct.module.css";
 import TopContainer from "../../components/topcontainer/TopContainer";
 import EndContainerComponent from "../../components/endContainer/EndContainer";
@@ -15,7 +16,6 @@ const ViewProduct = () => {
   const { productId } = useParams();
   const navigate = useNavigate();
 
-
   useEffect(() => {
     axios
       .get(`${process.env.REACT_APP_API_BASE_URL}/api/isloggedin`, {
@@ -24,7 +24,7 @@ const ViewProduct = () => {
       .then((response) => {
         if (response.data.isLoggedIn) {
           setIsLoggedIn(true);
-          console.log(response.data);
+          // console.log(response.data);
         }
       })
       .catch((error) => {
@@ -42,7 +42,7 @@ const ViewProduct = () => {
       .catch((error) => {
         console.error("Error fetching product details:", error);
       });
-  }, [productId]);
+  });
 
   const handleLogout = () => {
     axios
@@ -53,12 +53,25 @@ const ViewProduct = () => {
         if (response.status === 200) {
           Cookies.remove("jwt");
           setIsLoggedIn(false);
-          navigate("/login")
+          navigate("/login");
         }
       })
       .catch((error) => {
         console.error("Error during logout:", error);
       });
+  };
+
+  const handleBackBtn = () => {
+    navigate(-1);
+  };
+
+  const imageStyle = {
+    backgroundSize: "contain",
+    backgroundPosition: "center",
+    backgroundRepeat: "no-repeat",
+    border: "4px solid rgba(0, 102, 255, 0.17)",
+    borderRadius: "10px",
+    position: "relative",
   };
 
   return (
@@ -68,15 +81,26 @@ const ViewProduct = () => {
       </div>
       <div className={styles.midContainer}>
         <HeaderComponent />
-        <button className={styles.backToProductsBtn}>Back to Products</button>
+        <button onClick={handleBackBtn} className={styles.backToProductsBtn}>
+          Back to Products
+        </button>
         <div className={styles.productTagline}>{product.tagline}</div>
-        <div>
+        <div style={{display:"flex", padding:"1rem", gap:"1rem"}}>
           <div className={styles.productImages}>
-            {/* Render product images here */}
-            {/* <div
-              className={styles.productImage}
-              style={{ backgroundImage: `url(${product.images["1"]})` }}
-            ></div> */}
+            {product && product.images && (
+              <ImageSlider
+                width={400}
+                height={400}
+                showBullets={true}
+                showNavs={true}
+                images={[
+                  { url: product.images["1"], style: imageStyle },
+                  { url: product.images["2"], style: imageStyle },
+                  { url: product.images["3"], style: imageStyle },
+                  { url: product.images["4"], style: imageStyle },
+                ]}
+              />
+            )}
           </div>
           <div className={styles.productDetails}>
             <div className={styles.productName}>{product.name}</div>

@@ -60,8 +60,6 @@ const Main = () => {
       .then((response) => {
         if (response.data.isLoggedIn) {
           setIsLoggedIn(true);
-          // setUserName(response.data.name);
-          console.log(response.data);
         }
       })
       .catch((error) => {
