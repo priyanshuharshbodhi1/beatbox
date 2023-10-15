@@ -9,24 +9,34 @@ import TopContainer from "../../components/topcontainer/TopContainer";
 import EndContainerComponent from "../../components/endContainer/EndContainer";
 import HeaderComponent from "../../components/header/Header";
 import { Link } from "react-router-dom";
-import { useDispatch, useSelector } from 'react-redux';
-import { ADD } from '../../redux/actions/action';
+import { useDispatch, useSelector } from "react-redux";
+import { ADD } from "../../redux/actions/action";
 
 const ViewProduct = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [product, setProduct] = useState({});
 
-  const getdata = useSelector((state)=> state.cartreducer.carts);
+  const getdata = useSelector((state) => state.cartreducer.carts);
   console.log(getdata);
 
   const dispatch = useDispatch();
-  
 
+  const send = (e) => {
+    if (!isLoggedIn) {
+      navigate("/signup");
+    } else {
+      dispatch(ADD(e));
+    }
+  };
 
-  const send = (e)=>{
-    // console.log(e);
-    dispatch(ADD(e));
-  }
+  const send2 = (e) => {
+    if (!isLoggedIn) {
+      navigate("/signup");
+    } else {
+      dispatch(ADD(e));
+      navigate("/viewcart");
+    }
+  };
 
   const { productId } = useParams();
   const navigate = useNavigate();
@@ -86,7 +96,7 @@ const ViewProduct = () => {
     border: "4px solid rgba(0, 102, 255, 0.17)",
     borderRadius: "1rem",
     position: "relative",
-  }; 
+  };
 
   return (
     <>
@@ -135,12 +145,22 @@ const ViewProduct = () => {
               Brand - {product.company}
             </div>
 
-            <Link >
-              <button className={styles.addToCartBtn} onClick={()=> send(product)}>Add to Cart</button>  
+            <Link>
+              <button
+                className={styles.addToCartBtn}
+                onClick={() => send(product)}
+              >
+                Add to Cart
+              </button>
             </Link>
-{/* make the add btn alert later above */}
-            <Link to="/viewcart">
-              <button className={styles.buyNowBtn} onClick={()=> send(product)}>Buy Now</button>
+            {/* make the add btn alert later above */}
+            <Link>
+              <button
+                className={styles.buyNowBtn}
+                onClick={() => send2(product)}
+              >
+                Buy Now
+              </button>
             </Link>
           </div>
         </div>

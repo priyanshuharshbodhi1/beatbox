@@ -12,8 +12,8 @@ import FrontImage from "../../assets/images/front-image.png";
 import ViewCartSymbol from "../../assets/images/view-cart.svg";
 import AddToCartIcon from "../../assets/images/addtocart-icon.svg";
 import { Link } from "react-router-dom";
-import { useDispatch} from 'react-redux';
-import { ADD } from '../../redux/actions/action';
+import { useDispatch } from "react-redux";
+import { ADD } from "../../redux/actions/action";
 
 const Main = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -54,7 +54,6 @@ const Main = () => {
   const send = (e) => {
     dispatch(ADD(e));
   };
-
 
   // Function to toggle between grid and list view
   const toggleView = () => {
@@ -375,92 +374,102 @@ const Main = () => {
           >
             {isGridView
               ? products.map((product) => (
-                <Link
-                to={`/product/${product._id}`}
-                key={product._id}
-                style={{ textDecoration: "none", color: "inherit" }}
-                onClick={(event) => {
-                  if (!event.target.classList.contains(styles.addToCartIcon)) {
-                    return;
-                  }
-                  event.preventDefault();
-                }}
-              >
-                <div className={styles.productsGrid}>
-                  <div
-                    className={styles.productImage}
-                    style={{
-                      backgroundImage: `url(${product.images["1"]})`,
+                  <Link
+                    to={`/product/${product._id}`}
+                    key={product._id}
+                    style={{ textDecoration: "none", color: "inherit" }}
+                    onClick={(event) => {
+                      if (
+                        !event.target.classList.contains(styles.addToCartIcon)
+                      ) {
+                        return;
+                      }
+                      if (!isLoggedIn) {
+                        event.preventDefault();
+                        navigate("/signup");
+                      } else {
+                        send(product);
+                      }
                     }}
                   >
-                    <img
-                      src={AddToCartIcon}
-                      alt=""
-                      className={styles.addToCartIcon}
-                      onClick={() => send(product)}
-                    />
-                  </div>
-                  <div
-                    className={`${styles.productDetailsForGrid} ${styles.productDetails} `}
-                  >
-                    <div
-                      className={`${styles.productName} ${styles.productNameForGrid}`}
-                    >
-                      {product.name}
+                    <div className={styles.productsGrid}>
+                      <div
+                        className={styles.productImage}
+                        style={{
+                          backgroundImage: `url(${product.images["1"]})`,
+                        }}
+                      >
+                        <img
+                          src={AddToCartIcon}
+                          alt=""
+                          className={styles.addToCartIcon}
+                        />
+                      </div>
+                      <div
+                        className={`${styles.productDetailsForGrid} ${styles.productDetails} `}
+                      >
+                        <div
+                          className={`${styles.productName} ${styles.productNameForGrid}`}
+                        >
+                          {product.name}
+                        </div>
+                        <div className={styles.productPrice}>
+                          Price - &#x20B9;
+                          {parseInt(product.price).toLocaleString("en-IN")}
+                        </div>
+                        <div className={styles.productColorAndType}>
+                          {product.color} | {product.type}
+                        </div>
+                      </div>
                     </div>
-                    <div className={styles.productPrice}>
-                      Price - &#x20B9;
-                      {parseInt(product.price).toLocaleString("en-IN")}
-                    </div>
-                    <div className={styles.productColorAndType}>
-                      {product.color} | {product.type}
-                    </div>
-                  </div>
-                </div>
-              </Link>
-              
+                  </Link>
                 ))
               : products.map((product) => (
-                <Link
-                to={`/product/${product._id}`}
-                key={product._id}
-                style={{ textDecoration: "none", color: "inherit" }}
-                onClick={(event) => {
-                  if (event.target.classList.contains(styles.addToCartIcon)) {
-                    event.preventDefault();
-                    send(product);
-                  }
-                }}
-              >
-                <div className={styles.productItem}>
-                  <div
-                    className={styles.productImage}
-                    style={{
-                      backgroundImage: `url(${product.images["1"]})`,
+                  <Link
+                    to={`/product/${product._id}`}
+                    key={product._id}
+                    style={{ textDecoration: "none", color: "inherit" }}
+                    onClick={(event) => {
+                      if (
+                        event.target.classList.contains(styles.addToCartIcon)
+                      ) {
+                        event.preventDefault();
+                        send(product);
+                      }
                     }}
                   >
-                    <img
-                      src={AddToCartIcon}
-                      alt=""
-                      className={styles.addToCartIcon}
-                      onClick={(event) => event.preventDefault()}
-                    />
-                  </div>
-                  <div className={styles.productDetails}>
-                    <div className={styles.productName}>{product.name}</div>
-                    <div className={styles.productPrice}>
-                      Price - &#x20B9;
-                      {parseInt(product.price).toLocaleString("en-IN")}
+                    <div className={styles.productItem}>
+                      <div
+                        className={styles.productImage}
+                        style={{
+                          backgroundImage: `url(${product.images["1"]})`,
+                        }}
+                      >
+                        <img
+                          src={AddToCartIcon}
+                          alt=""
+                          className={styles.addToCartIcon}
+                          onClick={(event) => event.preventDefault()}
+                        />
+                      </div>
+                      <div className={styles.productDetails}>
+                        <div className={styles.productName}>{product.name}</div>
+                        <div className={styles.productPrice}>
+                          Price - &#x20B9;
+                          {parseInt(product.price).toLocaleString("en-IN")}
+                        </div>
+                        <div className={styles.productColorAndType}>
+                          {product.color} | {product.type}
+                        </div>
+                        <div className={styles.ProductTagline}>
+                          {product.tagline}
+                        </div>
+                        <button className={styles.productDetailsBtn}>
+                          Details
+                        </button>
+                      </div>
                     </div>
-                    <div className={styles.productColorAndType}>
-                      {product.color} | {product.type}
-                    </div>
-                    <div className={styles.ProductTagline}>{product.tagline}</div>
-                    <button className={styles.productDetailsBtn}>Details</button>
-                  </div>
-                </div>
-              </Link>
-              
+                  </Link>
                 ))}
           </div>
         </div>
