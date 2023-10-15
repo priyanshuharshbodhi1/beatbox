@@ -85,3 +85,14 @@
   text-align: center;
   margin: 1rem 0 0 0;
 }
+
+
+
+@media only screen and (max-width: 600px) {
+  .formContainer {
+    padding: 0 1.5rem;
+  }
+  .signupForm{
+    margin-top: 7rem;
+  }
+}

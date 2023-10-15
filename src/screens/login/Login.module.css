@@ -14,7 +14,7 @@ body {
 
 .formContainer {
   min-width: 17rem;
-  max-width: 21rem;
+  max-width: 23rem;
   /* width: clamp(15rem, 20rem, 25rem); */
   margin: 1rem auto;
 }
@@ -94,5 +94,8 @@ body {
 @media only screen and (max-width: 600px) {
   .formContainer {
     padding: 0 1.5rem;
+  }
+  .signinForm {
+    margin-top: 10rem;
   }
 }
