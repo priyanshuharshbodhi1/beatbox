@@ -9,10 +9,23 @@ import TopContainer from "../../components/topcontainer/TopContainer";
 import EndContainerComponent from "../../components/endContainer/EndContainer";
 import HeaderComponent from "../../components/header/Header";
 import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from 'react-redux';
+import { ADD } from '../../redux/actions/action';
 
 const ViewProduct = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [product, setProduct] = useState({});
+
+  const getdata = useSelector((state)=> state.cartreducer.carts);
+  console.log(getdata);
+
+  const dispatch = useDispatch();
+
+
+  const send = (e)=>{
+    // console.log(e);
+    dispatch(ADD(e));
+  }
 
   const { productId } = useParams();
   const navigate = useNavigate();
@@ -42,7 +55,7 @@ const ViewProduct = () => {
       .catch((error) => {
         console.error("Error fetching product details:", error);
       });
-  });
+  }, [productId]);
 
   const handleLogout = () => {
     axios
@@ -121,8 +134,8 @@ const ViewProduct = () => {
               Brand - {product.company}
             </div>
 
-            <Link to="/viewcart">
-              <button className={styles.addToCartBtn}>Add to Cart</button>
+            <Link >
+              <button className={styles.addToCartBtn} onClick={()=> send(product)}>Add to Cart</button>
             </Link>
 
             <Link to="/viewcart">
