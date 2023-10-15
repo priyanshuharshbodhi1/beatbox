@@ -20,6 +20,7 @@ const ViewProduct = () => {
   console.log(getdata);
 
   const dispatch = useDispatch();
+  
 
 
   const send = (e)=>{
@@ -135,11 +136,11 @@ const ViewProduct = () => {
             </div>
 
             <Link >
-              <button className={styles.addToCartBtn} onClick={()=> send(product)}>Add to Cart</button>
+              <button className={styles.addToCartBtn} onClick={()=> send(product)}>Add to Cart</button>  
             </Link>
-
+{/* make the add btn alert later above */}
             <Link to="/viewcart">
-              <button className={styles.buyNowBtn}>Buy Now</button>
+              <button className={styles.buyNowBtn} onClick={()=> send(product)}>Buy Now</button>
             </Link>
           </div>
         </div>

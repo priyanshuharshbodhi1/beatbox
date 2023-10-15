@@ -18,12 +18,12 @@ const ViewCart = () => {
 
   const dispatch = useDispatch();
 
-  const dlt = (_id) => {
-    dispatch(DLT(_id));
-  };
-
   const send = (e) => {
     dispatch(ADD(e));
+  };
+
+  const dlt = (_id) => {
+    dispatch(DLT(_id));
   };
 
   const remove = (e) => {
