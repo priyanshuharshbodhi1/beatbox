@@ -14,13 +14,12 @@ body {
 
 .formContainer {
   min-width: 17rem;
-  max-width: 23rem;
+  max-width: 21rem;
+  /* width: clamp(15rem, 20rem, 25rem); */
   margin: 1rem auto;
 }
 
 .signinForm {
-  /* min-width: 17rem;
-  max-width: 23rem; */
   border-radius: 0.5rem;
   border: 1.5px solid #d9d9d9;
   background: #fff;
@@ -87,4 +86,13 @@ body {
   font-weight: 400;
   text-align: initial;
   margin: 0;
+}
+
+
+
+
+@media only screen and (max-width: 600px) {
+  .formContainer {
+    padding: 0 1.5rem;
+  }
 }

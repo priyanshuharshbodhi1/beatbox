@@ -13,7 +13,7 @@ const Login = () => {
           <LogoComponent/>
           <div className={styles.signinForm}>
             <form action={`${process.env.REACT_APP_API_BASE_URL}/api/login`} method="POST">
-              <h2 className={styles.title}>Sign in</h2>{" "}
+              <h2 className={styles.title}>Log in</h2>{" "}
               <div>
                 <label className={styles.label} for="email">
                   Enter your Email Id
