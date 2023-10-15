@@ -36,7 +36,7 @@ const Checkout = () => {
         <div className={styles.midContainer}>
           <div className={styles.header}>
             <div className={styles.logo}>
-              <img src={Logo} alt="Beatbox Logo" className={styles.logoImage} />
+              <img src={Logo} alt="" className={styles.logoImage} />
               {"  "}
               BEATBOX
             </div>
