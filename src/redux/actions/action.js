@@ -1,23 +1,29 @@
 export const ADD = (item) => {
-    return {
+    return (dispatch, getState) => {
+      dispatch({
         type: "ADD_CART",
-        payload: item
+        payload: item,
+      });
+      localStorage.setItem('cartItems', JSON.stringify(getState().cartreducer.carts));
     }
-}
-
-// remove items
-export const DLT = (_id) => {
-    return {
+  }
+  
+  export const DLT = (_id) => {
+    return (dispatch, getState) => {
+      dispatch({
         type: "RMV_CART",
-        payload: _id
+        payload: _id,
+      });
+      localStorage.setItem('cartItems', JSON.stringify(getState().cartreducer.carts));
     }
-}
-
-// remove individual item
-
-export const REMOVE = (iteam) => {
-    return {
+  }
+  
+  export const REMOVE = (item) => {
+    return (dispatch, getState) => {
+      dispatch({
         type: "RMV_ONE",
-        payload: iteam
+        payload: item,
+      });
+      localStorage.setItem('cartItems', JSON.stringify(getState().cartreducer.carts));
     }
-}
+  }

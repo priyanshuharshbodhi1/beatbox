@@ -1,5 +1,6 @@
+const storedCartItems = JSON.parse(localStorage.getItem('cartItems'));
 const INIT_STATE = {
-  carts: [],
+  carts: storedCartItems ? storedCartItems : [],
 };
 
 export const cartreducer = (state = INIT_STATE, action) => {
@@ -63,3 +64,5 @@ export const cartreducer = (state = INIT_STATE, action) => {
       return state;
   }
 };
+
+
