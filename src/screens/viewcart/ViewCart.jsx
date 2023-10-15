@@ -71,7 +71,7 @@ const ViewCart = () => {
         if (response.status === 200) {
           Cookies.remove("jwt");
           setIsLoggedIn(false);
-          navigate(-1);
+          navigate("/login");
         }
       })
       .catch((error) => {
