@@ -23,7 +23,7 @@ const router = createBrowserRouter([
     element: <SignUp />,
   },
   {
-    path: "/viewproduct/:productId",
+    path: "/product/:productId",
     element: <ViewProduct />,
   },
   {

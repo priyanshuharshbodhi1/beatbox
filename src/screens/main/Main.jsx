@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Cookies from "js-cookie";
+import { useNavigate } from 'react-router-dom';
 import styles from "./Main.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGrip, faList } from "@fortawesome/free-solid-svg-icons";
@@ -14,7 +15,6 @@ import { Link } from "react-router-dom";
 
 const Main = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  // const [userName, setUserName] = useState("");
   const companies = [
     "Company",
     "boAt",
@@ -45,6 +45,8 @@ const Main = () => {
   const [products, setProducts] = useState([]);
   const [isGridView, setIsGridView] = useState(true); // Initially set to grid view
 
+  const navigate = useNavigate();
+
   // Function to toggle between grid and list view
   const toggleView = () => {
     setIsGridView(!isGridView);
@@ -52,7 +54,7 @@ const Main = () => {
 
   useEffect(() => {
     axios
-      .get(`${process.env.REACT_APP_API_BASE_URL}/api/isloggedin`,{
+      .get(`${process.env.REACT_APP_API_BASE_URL}/api/isloggedin`, {
         withCredentials: true,
       })
       .then((response) => {
@@ -178,7 +180,7 @@ const Main = () => {
           Cookies.remove("jwt");
           setIsLoggedIn(false);
           console.log("User is logged out");
-          // history.push("/login"); // Navigate to /login
+          navigate("/login")
         }
       })
       .catch((error) => {

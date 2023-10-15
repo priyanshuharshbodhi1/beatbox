@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Cookies from "js-cookie";
+import { useParams } from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
 import styles from "./ViewProduct.module.css";
 import TopContainer from "../../components/topcontainer/TopContainer";
 import EndContainerComponent from "../../components/endContainer/EndContainer";
@@ -9,6 +11,38 @@ import HeaderComponent from "../../components/header/Header";
 const ViewProduct = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [product, setProduct] = useState({});
+
+  const { productId } = useParams();
+  const navigate = useNavigate();
+
+
+  useEffect(() => {
+    axios
+      .get(`${process.env.REACT_APP_API_BASE_URL}/api/isloggedin`, {
+        withCredentials: true,
+      })
+      .then((response) => {
+        if (response.data.isLoggedIn) {
+          setIsLoggedIn(true);
+          console.log(response.data);
+        }
+      })
+      .catch((error) => {
+        console.error("Error checking login status: ", error);
+      });
+  }, []);
+
+  useEffect(() => {
+    // Fetch the product details using the productId
+    axios
+      .get(`${process.env.REACT_APP_API_BASE_URL}/product/${productId}`)
+      .then((response) => {
+        setProduct(response.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching product details:", error);
+      });
+  }, [productId]);
 
   const handleLogout = () => {
     axios
@@ -19,27 +53,13 @@ const ViewProduct = () => {
         if (response.status === 200) {
           Cookies.remove("jwt");
           setIsLoggedIn(false);
-          console.log("User is logged out");
-          // history.push("/login"); // Navigate to /login
+          navigate("/login")
         }
       })
       .catch((error) => {
         console.error("Error during logout:", error);
       });
   };
-
-  useEffect(() => {
-    axios
-      .get(`${process.env.REACT_APP_API_BASE_URL}/products`)
-      .then((response) => {
-        if (response.status === 200) {
-          setProduct(response.data[0]); // Assuming the first product as an example
-        }
-      })
-      .catch((error) => {
-        console.error("Error fetching product:", error);
-      });
-  }, []);
 
   return (
     <>
@@ -53,10 +73,10 @@ const ViewProduct = () => {
         <div>
           <div className={styles.productImages}>
             {/* Render product images here */}
-            <div
+            {/* <div
               className={styles.productImage}
               style={{ backgroundImage: `url(${product.images["1"]})` }}
-            ></div>
+            ></div> */}
           </div>
           <div className={styles.productDetails}>
             <div className={styles.productName}>{product.name}</div>
