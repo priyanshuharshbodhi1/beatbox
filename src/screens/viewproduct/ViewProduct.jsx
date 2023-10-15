@@ -8,6 +8,7 @@ import styles from "./ViewProduct.module.css";
 import TopContainer from "../../components/topcontainer/TopContainer";
 import EndContainerComponent from "../../components/endContainer/EndContainer";
 import HeaderComponent from "../../components/header/Header";
+import { Link } from "react-router-dom";
 
 const ViewProduct = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -24,7 +25,6 @@ const ViewProduct = () => {
       .then((response) => {
         if (response.data.isLoggedIn) {
           setIsLoggedIn(true);
-          // console.log(response.data);
         }
       })
       .catch((error) => {
@@ -70,9 +70,9 @@ const ViewProduct = () => {
     backgroundPosition: "center",
     backgroundRepeat: "no-repeat",
     border: "4px solid rgba(0, 102, 255, 0.17)",
-    borderRadius: "10px",
+    borderRadius: "1rem",
     position: "relative",
-  };
+  }; 
 
   return (
     <>
@@ -85,7 +85,7 @@ const ViewProduct = () => {
           Back to Products
         </button>
         <div className={styles.productTagline}>{product.tagline}</div>
-        <div style={{display:"flex", padding:"1rem", gap:"1rem"}}>
+        <div style={{ display: "flex", padding: "1rem", gap: "1rem" }}>
           <div className={styles.productImages}>
             {product && product.images && (
               <ImageSlider
@@ -93,6 +93,8 @@ const ViewProduct = () => {
                 height={400}
                 showBullets={true}
                 showNavs={true}
+                navStyle={2}
+                bgColor={"#000"}
                 images={[
                   { url: product.images["1"], style: imageStyle },
                   { url: product.images["2"], style: imageStyle },
@@ -105,9 +107,9 @@ const ViewProduct = () => {
           <div className={styles.productDetails}>
             <div className={styles.productName}>{product.name}</div>
             <div className={styles.productRating}></div>
-            <div className={styles.productPrice}>{product.price}</div>
+            <div className={styles.productPrice}>&#x20B9;{product.price} </div>
             <div className={styles.productColorAndType}>
-              {product.color} | {product.type}
+              {product.color} | {product.type} Device
             </div>
             <div className={styles.productAbout}>
               About this item: <br />
@@ -118,8 +120,14 @@ const ViewProduct = () => {
             <div className={styles.productCompany}>
               Brand - {product.company}
             </div>
-            <button className={styles.addToCartBtn}>Add to Cart</button>
-            <button className={styles.buyNowBtn}>Buy Now</button>
+
+            <Link to="/viewcart">
+              <button className={styles.addToCartBtn}>Add to Cart</button>
+            </Link>
+
+            <Link to="/viewcart">
+              <button className={styles.buyNowBtn}>Buy Now</button>
+            </Link>
           </div>
         </div>
       </div>

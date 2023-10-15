@@ -2,6 +2,7 @@ import React from "react";
 import styles from "./Header.module.css";
 import Logo from "../../assets/images/beatbox-logo.png";
 import ViewCartSymbol from "../../assets/images/view-cart.svg";
+import { Link } from "react-router-dom";
 
 const Header = () => {
   return (
@@ -12,15 +13,17 @@ const Header = () => {
         BEATBOX
       </div>
       <div style={{ marginRight: "auto", marginLeft: "2rem" }}>Home</div>
-      <button className={styles.viewCartBtn}>
-        <img
-          src={ViewCartSymbol}
-          alt=""
-          className={styles.ViewCartImage}
-          style={{ width: "15px", height: "auto", marginRight: "5px" }}
-        />
-        View Cart
-      </button>
+      <Link to="/viewcart" style={{ textDecoration: "none", color: "inherit" }}>
+        <button className={styles.viewCartBtn}>
+          <img
+            src={ViewCartSymbol}
+            alt=""
+            className={styles.ViewCartImage}
+            style={{ width: "15px", height: "auto", marginRight: "5px" }}
+          />
+          View Cart
+        </button>
+      </Link>
     </div>
   );
 };

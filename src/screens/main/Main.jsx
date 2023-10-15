@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Cookies from "js-cookie";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 import styles from "./Main.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGrip, faList } from "@fortawesome/free-solid-svg-icons";
@@ -178,7 +178,7 @@ const Main = () => {
           Cookies.remove("jwt");
           setIsLoggedIn(false);
           console.log("User is logged out");
-          navigate("/login")
+          navigate("/login");
         }
       })
       .catch((error) => {
@@ -239,15 +239,21 @@ const Main = () => {
               BEATBOX
             </div>
             <div style={{ marginRight: "auto", marginLeft: "2rem" }}>Home</div>
-            <button className={styles.viewCartBtn}>
-              <img
-                src={ViewCartSymbol}
-                alt=""
-                className={styles.ViewCartImage}
-                style={{ width: "15px", height: "auto", marginRight: "5px" }}
-              />
-              View Cart
-            </button>
+
+            <Link
+              to="/viewcart"
+              style={{ textDecoration: "none", color: "inherit" }}
+            >
+              <button className={styles.viewCartBtn}>
+                <img
+                  src={ViewCartSymbol}
+                  alt=""
+                  className={styles.ViewCartImage}
+                  style={{ width: "15px", height: "auto", marginRight: "5px" }}
+                />
+                View Cart
+              </button>
+            </Link>
           </div>
           <div className={styles.mainImage}>
             <div style={{ padding: "1rem 2rem" }}>
@@ -360,7 +366,11 @@ const Main = () => {
           >
             {isGridView
               ? products.map((product) => (
-                  <Link to={`/product/${product._id}`} key={product._id}>
+                  <Link
+                    to={`/product/${product._id}`}
+                    key={product._id}
+                    style={{ textDecoration: "none", color: "inherit" }}
+                  >
                     <div className={styles.productsGrid}>
                       <div
                         className={styles.productImage}
@@ -394,7 +404,11 @@ const Main = () => {
                   </Link>
                 ))
               : products.map((product) => (
-                  <Link to={`/product/${product._id}`} key={product._id}>
+                  <Link
+                    to={`/product/${product._id}`}
+                    key={product._id}
+                    style={{ textDecoration: "none", color: "inherit" }}
+                  >
                     <div className={styles.productItem}>
                       <div
                         className={styles.productImage}
