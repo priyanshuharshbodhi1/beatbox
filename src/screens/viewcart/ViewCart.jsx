@@ -32,9 +32,6 @@ const ViewCart = () => {
     dispatch(REMOVE(e));
   };
 
-  // const { id } = useParams();
-  // console.log(id);
-
   const total = () => {
     let price = 0;
     getdata.map((ele, k) => {
