@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import styles from "./ViewCart.module.css";
 import axios from "axios";
 import Cookies from "js-cookie";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import EndContainerComponent from "../../components/endContainer/EndContainer";
 import TopContainer from "../../components/topcontainer/TopContainer";
 import Logo from "../../assets/images/beatbox-logo.png";
@@ -120,7 +122,7 @@ const ViewCart = () => {
                       className={styles.image1}
                       alt=""
                     />
-                    <div>
+                    <div className={styles.tableContainer}>
                       <table className={styles.table}>
                         <thead>
                           <tr>
@@ -135,7 +137,7 @@ const ViewCart = () => {
                                 onClick={() => dlt(product._id)}
                                 className={styles.deleteItemBtn}
                               >
-                                Delete
+                                 <FontAwesomeIcon icon={faTrash} />
                               </button>
                             </th>
                           </tr>

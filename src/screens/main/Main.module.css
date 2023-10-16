@@ -25,6 +25,10 @@
   margin-bottom: auto;
 }
 
+.headline{
+  width: 25rem;
+}
+
 .logo {
   display: flex;
   align-items: center;
@@ -71,13 +75,15 @@
   background: linear-gradient(90deg, #7286b4 0%, #e794ce 100%);
 }
 
-.mainImage img {
+.FrontImage {
   width: 17rem;
   height: auto;
   position: absolute;
   right: 3rem;
   bottom: 0;
 }
+
+
 
 .buyNowBtn {
   border-radius: 0.7rem;
@@ -254,4 +260,59 @@
 
 .productsGrid{
     text-align: -webkit-center;
+}
+
+
+
+@media only screen and (max-width: 740px) {
+  .headline{
+    font-size: 1.7rem;
+    width: 50%;
+  }
+
+}
+
+
+@media only screen and (max-width: 580px) {
+  .headline{
+    font-size: 1.4rem;
+    width: 50%;
+  }
+
+  .FrontImage {
+    width: 17rem;
+    height: auto;
+    position: absolute;
+    right: -1rem;
+    bottom: 0;
+
+  }
+  
+
+}
+
+@media only screen and (max-width: 430px) {
+  .headline{
+    font-size: 1rem;
+    width: 50%;
+  }
+
+  .FrontImage {
+    width: 13.5rem;
+    height: auto;
+    position: absolute;
+    right: -1rem;
+    bottom: 0;
+  }
+  .mainImage{
+    min-height: fit-content;
+    border-radius: .8rem;
+  }
+
+  .midContainer{
+    padding: 0.5rem 1rem 1rem;
+    
+  }
+  
+
 }

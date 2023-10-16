@@ -265,7 +265,7 @@ const Main = () => {
           </div>
           <div className={styles.mainImage}>
             <div style={{ padding: "1rem 2rem" }}>
-              <div style={{ width: "25rem" }}>
+              <div className={styles.headline}>
                 Grab upto 50% off on Selected headphones
               </div>
               <button className={styles.buyNowBtn}>Buy Now</button>
@@ -276,7 +276,7 @@ const Main = () => {
             <input
               type="search"
               className={styles.searchBarInput}
-              placeholder="Search Product"
+              placeholder="Search from BEATBOX"
               value={searchText}
               onChange={handleSearch}
             />

@@ -109,7 +109,7 @@ const ViewProduct = () => {
           Back to Products
         </button>
         <div className={styles.productTagline}>{product.tagline}</div>
-        <div style={{ display: "flex", padding: "1rem", gap: "1rem" }}>
+        <div className={styles.productDetailsContainer}>
           <div className={styles.productImages}>
             {product && product.images && (
               <ImageSlider

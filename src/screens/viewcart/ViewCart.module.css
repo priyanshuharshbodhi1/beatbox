@@ -133,3 +133,31 @@
   justify-content: space-between;
   font-size: 1.1rem;
 }
+
+
+@media only screen and (max-width: 900px) {
+  .product{
+    flex-wrap: wrap;
+  }
+
+  .midContainer{
+    padding: 1rem 1rem 2rem 1rem;
+  }
+
+  .image1{
+    margin: auto;
+  }
+
+  .checkoutDetails{
+    flex-wrap: wrap;
+  }
+
+  tr{
+    /* display: flex;
+  flex-direction: column; */
+  }
+
+  .tableContainer{
+    margin: auto;
+  }
+}
