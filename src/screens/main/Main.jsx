@@ -415,7 +415,7 @@ const Main = () => {
                         </div>
                         <div className={styles.productPrice}>
                           Price - &#x20B9;
-                          {parseInt(product.price).toLocaleString("en-IN")}
+                          {product.price}{/* {parseInt(product.price).toLocaleString("en-IN")} */}
                         </div>
                         <div className={styles.productColorAndType}>
                           {product.color} | {product.type}
@@ -456,7 +456,7 @@ const Main = () => {
                         <div className={styles.productName}>{product.name}</div>
                         <div className={styles.productPrice}>
                           Price - &#x20B9;
-                          {parseInt(product.price).toLocaleString("en-IN")}
+                          {product.price} {/* {parseInt(product.price).toLocaleString("en-IN")} */}
                         </div>
                         <div className={styles.productColorAndType}>
                           {product.color} | {product.type}
