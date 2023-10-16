@@ -38,6 +38,7 @@ const Main = () => {
     "A to Z",
     "Z to A",
   ];
+
   const [selectedType, setSelectedType] = useState("Headphone type");
   const [selectedColor, setSelectedColor] = useState("Color");
   const [selectedCompany, setSelectedCompany] = useState("Company");
@@ -46,6 +47,11 @@ const Main = () => {
 
   const [products, setProducts] = useState([]);
   const [isGridView, setIsGridView] = useState(true); // Initially set to grid view
+
+  // products.forEach((obj) => {
+  //   const price = obj.price;
+  //   console.log( typeof price);
+  // });
 
   const navigate = useNavigate();
 
@@ -68,6 +74,7 @@ const Main = () => {
       .then((response) => {
         if (response.data.isLoggedIn) {
           setIsLoggedIn(true);
+          // console.log("islogged in api",response.data)
         }
       })
       .catch((error) => {
@@ -80,6 +87,8 @@ const Main = () => {
       .get(`${process.env.REACT_APP_API_BASE_URL}/products`)
       .then((response) => {
         if (response.status === 200) {
+          // console.log("products api",response.data)
+
           setProducts(response.data.slice(0, 15)); // Get the first 15 elements
         }
       })
@@ -139,21 +148,21 @@ const Main = () => {
     setSearchText(event.target.value);
   };
 
-  useEffect(() => {
-    const fetchProducts = async () => {
-      try {
-        const response = await axios.get(
-          `${process.env.REACT_APP_API_BASE_URL}/products/search?search=${searchText}&type=${selectedType}&color=${selectedColor}&company=${selectedCompany}&price_gte=${selectedPrice[0]}&price_lte=${selectedPrice[1]}`
-        );
-        if (response.status === 200) {
-          setProducts(response.data.slice(0, 15)); // Get the first 15 elements
-        }
-      } catch (error) {
-        console.error("Error fetching products:", error);
-      }
-    };
-    fetchProducts();
-  }, [searchText, selectedType, selectedColor, selectedCompany, selectedPrice]);
+  // useEffect(() => {
+  //   const fetchProducts = async () => {
+  //     try {
+  //       const response = await axios.get(
+  //         `${process.env.REACT_APP_API_BASE_URL}/products/search?search=${searchText}&type=${selectedType}&color=${selectedColor}&company=${selectedCompany}&price_gte=${selectedPrice[0]}&price_lte=${selectedPrice[1]}`
+  //       );
+  //       if (response.status === 200) {
+  //         setProducts(response.data.slice(0, 15)); // Get the first 15 elements
+  //       }
+  //     } catch (error) {
+  //       console.error("Error fetching products:", error);
+  //     }
+  //   };
+  //   fetchProducts();
+  // }, [searchText, selectedType, selectedColor, selectedCompany, selectedPrice]);
 
   const sortProducts = (sortBy) => {
     const sortedProducts = [...products];
@@ -185,7 +194,7 @@ const Main = () => {
         if (response.status === 200) {
           Cookies.remove("jwt");
           setIsLoggedIn(false);
-          console.log("User is logged out");
+          // console.log("User is logged out");
           navigate("/login");
         }
       })
@@ -415,7 +424,8 @@ const Main = () => {
                         </div>
                         <div className={styles.productPrice}>
                           Price - &#x20B9;
-                          {product.price}{/* {parseInt(product.price).toLocaleString("en-IN")} */}
+                          {product.price}
+                          {/* {parseInt(product.price).toLocaleString("en-IN")} */}
                         </div>
                         <div className={styles.productColorAndType}>
                           {product.color} | {product.type}
@@ -456,7 +466,9 @@ const Main = () => {
                         <div className={styles.productName}>{product.name}</div>
                         <div className={styles.productPrice}>
                           Price - &#x20B9;
-                          {product.price} {/* {parseInt(product.price).toLocaleString("en-IN")} */}
+                          {product.price}
+                          {console.log(product.price)}{" "}
+                          {/* {parseInt(product.price).toLocaleString("en-IN")} */}
                         </div>
                         <div className={styles.productColorAndType}>
                           {product.color} | {product.type}
