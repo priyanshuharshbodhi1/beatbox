@@ -74,7 +74,7 @@ const Main = () => {
       .then((response) => {
         if (response.data.isLoggedIn) {
           setIsLoggedIn(true);
-          // console.log("islogged in api",response.data)
+          console.log("islogged in api",response.data)
         }
       })
       .catch((error) => {
