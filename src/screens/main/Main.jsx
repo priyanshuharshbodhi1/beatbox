@@ -16,7 +16,7 @@ import { useDispatch } from "react-redux";
 import { ADD } from "../../redux/actions/action";
 
 const Main = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(true);
   const companies = [
     "Company",
     "boAt",
