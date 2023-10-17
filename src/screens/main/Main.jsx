@@ -16,7 +16,7 @@ import { useDispatch } from "react-redux";
 import { ADD } from "../../redux/actions/action";
 
 const Main = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(true);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const companies = [
     "Company",
     "boAt",
@@ -74,13 +74,31 @@ const Main = () => {
       .then((response) => {
         if (response.data.isLoggedIn) {
           setIsLoggedIn(true);
-          console.log("islogged in api",response.data)
+          console.log("islogged in api", response.data);
         }
       })
       .catch((error) => {
         console.error("Error checking login status: ", error);
       });
   }, []);
+
+  const handleLogout = () => {
+    axios
+      .post(`${process.env.REACT_APP_API_BASE_URL}/api/logout`, null, {
+        withCredentials: true,
+      })
+      .then((response) => {
+        if (response.status === 200) {
+          Cookies.remove("jwt");
+          setIsLoggedIn(false);
+          // console.log("User is logged out");
+          navigate("/login");
+        }
+      })
+      .catch((error) => {
+        console.error("Error during logout:", error);
+      });
+  };
 
   useEffect(() => {
     axios
@@ -183,24 +201,6 @@ const Main = () => {
         break;
     }
     setProducts(sortedProducts);
-  };
-
-  const handleLogout = () => {
-    axios
-      .post(`${process.env.REACT_APP_API_BASE_URL}/api/logout`, null, {
-        withCredentials: true,
-      })
-      .then((response) => {
-        if (response.status === 200) {
-          Cookies.remove("jwt");
-          setIsLoggedIn(false);
-          // console.log("User is logged out");
-          navigate("/login");
-        }
-      })
-      .catch((error) => {
-        console.error("Error during logout:", error);
-      });
   };
 
   return (
