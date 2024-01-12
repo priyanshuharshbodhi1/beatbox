@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import styles from "./Login.module.css";
 import LogoComponent from "../../components/logo/Logo";
 import EndContainerComponent from "../../components/endContainer/EndContainer";
@@ -6,16 +7,46 @@ import EndContainerComponent from "../../components/endContainer/EndContainer";
 import { Link } from "react-router-dom";
 
 const Login = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const navigate = useNavigate();
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    try {
+      // Submit the form and get the response with the JWT token
+      const response = await fetch(
+        `${process.env.REACT_APP_API_BASE_URL}/api/login`,
+        {
+          method: "POST",
+          headers: { email, password },
+        }
+      );
+      const data = await response.json();
+
+      if (response.status === 200) {
+        // Save the JWT token in localStorage
+        localStorage.setItem("token", data.token);
+        // Navigate to the home page
+        navigate("/");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+      // Handle the error here
+    }
+  };
+
   return (
     <>
       <div className={styles.mainContainer}>
         <div className={styles.formContainer}>
-          <LogoComponent/>
+          <LogoComponent />
           <div className={styles.signinForm}>
-            <form action={`${process.env.REACT_APP_API_BASE_URL}/api/login`} method="POST">
+            <form onSubmit={handleSubmit}>
               <h2 className={styles.title}>Log in</h2>{" "}
               <div>
-                <label className={styles.label} for="email">
+                <label className={styles.label} htmlFor="email">
                   Enter your Email Id
                 </label>
                 <br />
@@ -24,10 +55,12 @@ const Login = () => {
                   type="email"
                   id="email"
                   name="email"
+                  value={email}
+                  onChange={(event) => setEmail(event.target.value)}
                 />
               </div>
               <div>
-                <label className={styles.label} for="password">
+                <label className={styles.label} htmlFor="password">
                   Password
                 </label>
                 <br />
@@ -36,6 +69,8 @@ const Login = () => {
                   type="password"
                   id="password"
                   name="password"
+                  value={password}
+                  onChange={(event) => setPassword(event.target.value)}
                 />
               </div>
               <button className={styles.continueBtn} type="submit">
@@ -58,11 +93,16 @@ const Login = () => {
               />
             </div>{" "}
             <button className={styles.signupBtn}>
-              <Link to="/signup" style={{ textDecoration: 'none', color: 'inherit' }}>Create your BEATBOX Account</Link>
+              <Link
+                to="/signup"
+                style={{ textDecoration: "none", color: "inherit" }}
+              >
+                Create your BEATBOX Account
+              </Link>
             </button>
           </div>
         </div>
-        <EndContainerComponent/>
+        <EndContainerComponent />
       </div>
     </>
   );

@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
 import styles from "./Main.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -67,9 +66,14 @@ const Main = () => {
   };
 
   useEffect(() => {
+    const token = localStorage.getItem("token"); // Get the token from local storage
+
     axios
       .get(`${process.env.REACT_APP_API_BASE_URL}/api/isloggedin`, {
-        withCredentials: true,
+        // withCredentials: true,
+        headers: {
+          Authorization: token, // Include the token in the Authorization header
+        },
       })
       .then((response) => {
         if (response.data.isLoggedIn) {
@@ -83,21 +87,10 @@ const Main = () => {
   }, []);
 
   const handleLogout = () => {
-    axios
-      .post(`${process.env.REACT_APP_API_BASE_URL}/api/logout`, null, {
-        withCredentials: true,
-      })
-      .then((response) => {
-        if (response.status === 200) {
-          Cookies.remove("jwt");
-          setIsLoggedIn(false);
-          // console.log("User is logged out");
-          navigate("/login");
-        }
-      })
-      .catch((error) => {
-        console.error("Error during logout:", error);
-      });
+    localStorage.removeItem("token");
+
+    navigate("/login");
+    setIsLoggedIn(false);
   };
 
   useEffect(() => {

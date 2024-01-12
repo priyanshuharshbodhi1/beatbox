@@ -1,20 +1,54 @@
-import React from "react";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import styles from "./Signup.module.css";
 import LogoComponent from "../../components/logo/Logo";
 import EndContainerComponent from "../../components/endContainer/EndContainer";
 import { Link } from "react-router-dom";
 
 const Signup = () => {
+  // const [token, setToken] = useState("");
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [mobile, setMobile] = useState("");
+  const [password, setPassword] = useState("");
+
+  const navigate = useNavigate();
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    // Fetch the API endpoint and get the response
+    const response = await fetch(
+      `${process.env.REACT_APP_API_BASE_URL}/api/signup`,
+      {
+        method: "POST",
+        // Add your form data here
+        headers: { name, email, mobile, password },
+      }
+    );
+
+    // Check if the response is successful
+    if (response.status === 200) {
+      // Get the token from the response
+      const data = await response.json();
+      const token = data.token;
+
+      // Save the token in localStorage
+      localStorage.setItem("token", token);
+
+      navigate("/");
+    }
+  };
+
   return (
     <>
       <div className={styles.mainContainer}>
         <div className={styles.formContainer}>
           <LogoComponent />
           <div className={styles.signupForm}>
-            <form action={`${process.env.REACT_APP_API_BASE_URL}/api/signup`} method="POST">
+            <form onSubmit={handleSubmit}>
               <h2 className={styles.title}>Create Account</h2>{" "}
               <div>
-                <label className={styles.label} for="name">
+                <label className={styles.label} htmlFor="name">
                   Your Name
                 </label>
                 <br />
@@ -23,10 +57,12 @@ const Signup = () => {
                   type="text"
                   id="name"
                   name="name"
+                  value={name}
+                  onChange={(event) => setName(event.target.value)}
                 />
               </div>
               <div>
-                <label className={styles.label} for="mobile">
+                <label className={styles.label} htmlFor="mobile">
                   Mobile number
                 </label>
                 <br />
@@ -35,10 +71,12 @@ const Signup = () => {
                   type="text"
                   id="mobile"
                   name="mobile"
+                  value={mobile}
+                  onChange={(event) => setMobile(event.target.value)}
                 />
               </div>
               <div>
-                <label className={styles.label} for="email">
+                <label className={styles.label} htmlFor="email">
                   Email Id
                 </label>
                 <br />
@@ -47,10 +85,12 @@ const Signup = () => {
                   type="email"
                   id="email"
                   name="email"
+                  value={email}
+                  onChange={(event) => setEmail(event.target.value)}
                 />
               </div>
               <div>
-                <label className={styles.label} for="password">
+                <label className={styles.label} htmlFor="password">
                   Password
                 </label>
                 <br />
@@ -59,6 +99,8 @@ const Signup = () => {
                   type="password"
                   id="password"
                   name="password"
+                  value={password}
+                  onChange={(event) => setPassword(event.target.value)}
                 />
               </div>
               <button className={styles.continueBtn} type="submit">
