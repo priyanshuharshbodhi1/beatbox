@@ -16,6 +16,8 @@ import { ADD } from "../../redux/actions/action";
 
 const Main = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [loadingMessage, setLoadingMessage] = useState("Loading...");
+
   const companies = [
     "Company",
     "boAt",
@@ -47,7 +49,6 @@ const Main = () => {
   const [products, setProducts] = useState([]);
   const [isGridView, setIsGridView] = useState(true); // Initially set to grid view
   // const [isLoading, setIsLoading] = useState(true);
-
 
   // products.forEach((obj) => {
   //   const price = obj.price;
@@ -102,7 +103,10 @@ const Main = () => {
         if (response.status === 200) {
           // console.log("products api",response.data)
 
-          setProducts(response.data.slice(0, 15)); // Get the first 15 elements
+          setProducts(
+            response.data.slice(0, window.innerWidth > 800 ? 15 : 10)
+          );
+          // Get the first 15 elements
         }
       })
       .catch((error) => {
@@ -181,6 +185,15 @@ const Main = () => {
     }
     setProducts(sortedProducts);
   };
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setLoadingMessage("No items found");
+    }, 10000); // 10000 milliseconds = 10 seconds
+  
+    return () => clearTimeout(timer); // Clear the timeout if the component is unmounted
+  }, []);
+  
 
   const cartItemCount = useSelector((state) =>
     state.cartreducer.carts.reduce((total, item) => total + item.qnty, 0)
@@ -382,7 +395,17 @@ const Main = () => {
             </div>
           </div>
           {products.length === 0 ? (
-            <div style={{display:"flex", justifyContent:"center", alignItems:"center", paddingTop:"3.5rem"}}>Loading...</div>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                paddingTop: "3.5rem",
+              }}
+            >
+              
+              {loadingMessage}
+            </div>
           ) : (
             <div
               className={`${styles.productDisplay} ${
@@ -471,7 +494,9 @@ const Main = () => {
                           />
                         </div>
                         <div className={styles.productDetails}>
-                          <div className={styles.productName}>{product.name}</div>
+                          <div className={styles.productName}>
+                            {product.name}
+                          </div>
                           <div className={styles.productPrice}>
                             Price - &#x20B9;
                             {product.price}

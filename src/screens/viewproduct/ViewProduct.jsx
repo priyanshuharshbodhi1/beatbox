@@ -104,80 +104,88 @@ const ViewProduct = () => {
   };
 
   const cartItemCount = useSelector((state) =>
-  state.cartreducer.carts.reduce((total, item) => total + item.qnty, 0)
-);
+    state.cartreducer.carts.reduce((total, item) => total + item.qnty, 0)
+  );
 
-console.log("cartItems",cartItemCount);
+  console.log("cartItems", cartItemCount);
 
   return (
     <>
-      <div className={styles.topContainer}>
-        <TopContainer isLoggedIn={isLoggedIn} handleLogout={handleLogout} />
-      </div>
-      <div className={styles.midContainer}>
-        <HeaderComponent />
-        <button onClick={handleBackBtn} className={styles.backToProductsBtn}>
-          Back to Products
-        </button>
-        <div className={styles.productTagline}>{product.tagline}</div>
-        <div className={styles.productDetailsContainer}>
-          <div className={styles.productImages}>
-            {product && product.images && (
-              <ImageSlider
-                width={400}
-                height={400}
-                showBullets={true}
-                showNavs={true}
-                navStyle={2}
-                bgColor={"#000"}
-                images={[
-                  { url: product.images["1"], style: imageStyle },
-                  { url: product.images["2"], style: imageStyle },
-                  { url: product.images["3"], style: imageStyle },
-                  { url: product.images["4"], style: imageStyle },
-                ]}
-              />
-            )}
-          </div>
-          <div className={styles.productDetails}>
-            <div className={styles.productName}>{product.name}</div>
-            <div className={styles.productRating}></div>
-            <div className={styles.productPrice}>&#x20B9;{product.price} </div>
-            <div className={styles.productColorAndType}>
-              {product.color} | {product.type} Device
-            </div>
-            <div className={styles.productAbout}>
-              About this item: <br />
-              {product.about}
-            </div>
-            <div className={styles.productStock}>In Stock</div>
-            {/* {product.stock} - consider this when having time */}
-            <div className={styles.productCompany}>
-              Brand - {product.company}
-            </div>
-
-            <Link>
-              <button
-                className={styles.addToCartBtn}
-                onClick={() => send(product)}
-              >
-                Add to Cart
-              </button>
-            </Link>
-            {/* make the add btn alert later above */}
-            <Link>
-              <button
-                className={styles.buyNowBtn}
-                onClick={() => send2(product)}
-              >
-                Buy Now
-              </button>
-            </Link>
-          </div>
+      <div className={styles.mainContainer}>
+        <div className={styles.topContainer}>
+          <TopContainer isLoggedIn={isLoggedIn} handleLogout={handleLogout} />
         </div>
-      </div>
-      <div className={styles.endContainer}>
-        <EndContainerComponent />
+        <div className={styles.midContainer}>
+          <HeaderComponent />
+          <button onClick={handleBackBtn} className={styles.backToProductsBtn}>
+            Back to Products
+          </button>
+          {product ? (
+            <div className={styles.productDetailsContainer}>
+              <div className={styles.productImages}>
+                {product && product.images && (
+                  <ImageSlider
+                    width={window.innerWidth > 800 ? 400 : 300}
+                    height={window.innerWidth > 800 ? 400 : 300}
+                    showBullets={true}
+                    showNavs={true}
+                    navStyle={2}
+                    bgColor={"#000"}
+                    images={[
+                      { url: product.images["1"], style: imageStyle },
+                      { url: product.images["2"], style: imageStyle },
+                      { url: product.images["3"], style: imageStyle },
+                      { url: product.images["4"], style: imageStyle },
+                    ]}
+                  />
+                )}
+              </div>
+
+              <div className={styles.productDetails}>
+                <div className={styles.productName}>{product.name}</div>
+                <div className={styles.productRating}></div>
+                <div className={styles.productPrice}>
+                  &#x20B9;{product.price}{" "}
+                </div>
+                <div className={styles.productColorAndType}>
+                  {product.color} | {product.type} Device
+                </div>
+                <div className={styles.productAbout}>
+                  About this item: <br />
+                  {product.about}
+                </div>
+                <div className={styles.productStock}>In Stock</div>
+                {/* {product.stock} - consider this when having time */}
+                <div className={styles.productCompany}>
+                  Brand - {product.company}
+                </div>
+
+                <Link>
+                  <button
+                    className={styles.addToCartBtn}
+                    onClick={() => send(product)}
+                  >
+                    Add to Cart
+                  </button>
+                </Link>
+                {/* make the add btn alert later above */}
+                <Link>
+                  <button
+                    className={styles.buyNowBtn}
+                    onClick={() => send2(product)}
+                  >
+                    Buy Now
+                  </button>
+                </Link>
+              </div>
+            </div>
+          ) : (
+            <div>Loading...</div>
+          )}
+        </div>
+        <div className={styles.endContainer}>
+          <EndContainerComponent />
+        </div>
       </div>
     </>
   );
