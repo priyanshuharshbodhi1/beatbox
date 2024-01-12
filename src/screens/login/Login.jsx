@@ -10,12 +10,14 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     setErrorMessage("");
+    setLoading(true);
     try {
       // Submit the form and get the response with the JWT token
       const response = await fetch(
@@ -26,7 +28,7 @@ const Login = () => {
         }
       );
       const data = await response.json();
-
+      setLoading(false);
       if (response.status === 200) {
         // Save the JWT token in localStorage
         localStorage.setItem("token", data.token);
@@ -85,7 +87,7 @@ const Login = () => {
                 )}
               </div>
               <button className={styles.continueBtn} type="submit">
-                Continue
+                {loading ? "Loading..." : "Continue"}
               </button>
               <p className={styles.terms}>
                 By continuing, you agree to Musicart privacy notice and

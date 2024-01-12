@@ -11,6 +11,8 @@ const Signup = () => {
   const [email, setEmail] = useState("");
   const [mobile, setMobile] = useState("");
   const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
+
 
   const navigate = useNavigate();
 
@@ -19,6 +21,7 @@ const Signup = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     setErrorMessage("");
+    setLoading(true);
     // Fetch the API endpoint and get the response
     const response = await fetch(
       `${process.env.REACT_APP_API_BASE_URL}/api/signup`,
@@ -28,7 +31,7 @@ const Signup = () => {
         headers: { name, email, mobile, password },
       }
     );
-    console.log("response", response);
+      setLoading(false);
     // Check if the response is successful
     if (response.status === 200) {
       // Get the token from the response
@@ -116,7 +119,7 @@ const Signup = () => {
                 )}
               </div>
               <button className={styles.continueBtn} type="submit">
-                Continue
+                {loading? "Loading..." : "Continue"}
               </button>
               <p className={styles.terms}>
                 By continuing, you agree to Musicart privacy notice and
