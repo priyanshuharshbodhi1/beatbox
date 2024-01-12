@@ -14,8 +14,11 @@ const Signup = () => {
 
   const navigate = useNavigate();
 
+  const [errorMessage, setErrorMessage] = useState("");
+
   const handleSubmit = async (event) => {
     event.preventDefault();
+    setErrorMessage("");
     // Fetch the API endpoint and get the response
     const response = await fetch(
       `${process.env.REACT_APP_API_BASE_URL}/api/signup`,
@@ -25,7 +28,7 @@ const Signup = () => {
         headers: { name, email, mobile, password },
       }
     );
-
+    console.log("response", response);
     // Check if the response is successful
     if (response.status === 200) {
       // Get the token from the response
@@ -36,6 +39,10 @@ const Signup = () => {
       localStorage.setItem("token", token);
 
       navigate("/");
+    } else {
+      const data = await response.json();
+      const message = data.message;
+      setErrorMessage(message);
     }
   };
 
@@ -102,6 +109,11 @@ const Signup = () => {
                   value={password}
                   onChange={(event) => setPassword(event.target.value)}
                 />
+              </div>
+              <div>
+                {errorMessage && (
+                  <p className={styles.errorMessage}>{errorMessage}</p>
+                )}
               </div>
               <button className={styles.continueBtn} type="submit">
                 Continue

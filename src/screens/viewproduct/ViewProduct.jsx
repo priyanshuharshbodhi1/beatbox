@@ -16,8 +16,8 @@ const ViewProduct = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [product, setProduct] = useState({});
 
-  const getdata = useSelector((state) => state.cartreducer.carts);
-  console.log(getdata);
+  // const getdata = useSelector((state) => state.cartreducer.carts);
+  // console.log(getdata);
 
   const dispatch = useDispatch();
 
@@ -42,20 +42,25 @@ const ViewProduct = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    const token = localStorage.getItem("token"); // Get the token from local storage
+
     axios
       .get(`${process.env.REACT_APP_API_BASE_URL}/api/isloggedin`, {
-        withCredentials: true,
+        // withCredentials: true,
+        headers: {
+          Authorization: token, // Include the token in the Authorization header
+        },
       })
       .then((response) => {
         if (response.data.isLoggedIn) {
           setIsLoggedIn(true);
+          // console.log("islogged in api", response.data);
         }
       })
       .catch((error) => {
         console.error("Error checking login status: ", error);
       });
   }, []);
-
   useEffect(() => {
     // Fetch the product details using the productId
     axios
@@ -97,6 +102,12 @@ const ViewProduct = () => {
     borderRadius: "1rem",
     position: "relative",
   };
+
+  const cartItemCount = useSelector((state) =>
+  state.cartreducer.carts.reduce((total, item) => total + item.qnty, 0)
+);
+
+console.log("cartItems",cartItemCount);
 
   return (
     <>

@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from "react";
 import styles from "./ViewCart.module.css";
 import axios from "axios";
-import Cookies from "js-cookie";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTrash } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import EndContainerComponent from "../../components/endContainer/EndContainer";
 import TopContainer from "../../components/topcontainer/TopContainer";
 import Logo from "../../assets/images/beatbox-logo.png";
@@ -47,13 +46,19 @@ const ViewCart = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
+    const token = localStorage.getItem("token"); // Get the token from local storage
+
     axios
       .get(`${process.env.REACT_APP_API_BASE_URL}/api/isloggedin`, {
-        withCredentials: true,
+        // withCredentials: true,
+        headers: {
+          Authorization: token, // Include the token in the Authorization header
+        },
       })
       .then((response) => {
         if (response.data.isLoggedIn) {
           setIsLoggedIn(true);
+          console.log("islogged in api", response.data);
         }
       })
       .catch((error) => {
@@ -62,20 +67,9 @@ const ViewCart = () => {
   }, []);
 
   const handleLogout = () => {
-    axios
-      .post(`${process.env.REACT_APP_API_BASE_URL}/api/logout`, null, {
-        withCredentials: true,
-      })
-      .then((response) => {
-        if (response.status === 200) {
-          Cookies.remove("jwt");
-          setIsLoggedIn(false);
-          navigate("/login");
-        }
-      })
-      .catch((error) => {
-        console.error("Error during logout:", error);
-      });
+    localStorage.removeItem("token");
+    navigate("/login");
+    setIsLoggedIn(false);
   };
 
   return (
@@ -134,7 +128,7 @@ const ViewCart = () => {
                                 onClick={() => dlt(product._id)}
                                 className={styles.deleteItemBtn}
                               >
-                                 <FontAwesomeIcon icon={faTrash} />
+                                <FontAwesomeIcon icon={faTrash} />
                               </button>
                             </th>
                           </tr>

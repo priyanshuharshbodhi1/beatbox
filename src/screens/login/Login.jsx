@@ -9,11 +9,13 @@ import { Link } from "react-router-dom";
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
 
   const navigate = useNavigate();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    setErrorMessage("");
     try {
       // Submit the form and get the response with the JWT token
       const response = await fetch(
@@ -30,6 +32,10 @@ const Login = () => {
         localStorage.setItem("token", data.token);
         // Navigate to the home page
         navigate("/");
+      } else {
+        
+        const message = data.message;
+        setErrorMessage(message);
       }
     } catch (error) {
       console.error("Error:", error);
@@ -72,6 +78,11 @@ const Login = () => {
                   value={password}
                   onChange={(event) => setPassword(event.target.value)}
                 />
+              </div>
+              <div>
+                {errorMessage && (
+                  <p className={styles.errorMessage}>{errorMessage}</p>
+                )}
               </div>
               <button className={styles.continueBtn} type="submit">
                 Continue

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState , useEffect} from "react";
 import styles from "./Checkout.module.css";
 import axios from "axios";
 import Cookies from "js-cookie";
@@ -26,6 +26,27 @@ const Checkout = () => {
         console.error("Error during logout:", error);
       });
   };
+
+  useEffect(() => {
+    const token = localStorage.getItem("token"); // Get the token from local storage
+
+    axios
+      .get(`${process.env.REACT_APP_API_BASE_URL}/api/isloggedin`, {
+        // withCredentials: true,
+        headers: {
+          Authorization: token, // Include the token in the Authorization header
+        },
+      })
+      .then((response) => {
+        if (response.data.isLoggedIn) {
+          setIsLoggedIn(true);
+          console.log("islogged in api", response.data);
+        }
+      })
+      .catch((error) => {
+        console.error("Error checking login status: ", error);
+      });
+  }, []);
 
   return (
     <>

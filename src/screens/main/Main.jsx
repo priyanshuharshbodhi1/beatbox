@@ -11,7 +11,7 @@ import FrontImage from "../../assets/images/front-image.png";
 import ViewCartSymbol from "../../assets/images/view-cart.svg";
 import AddToCartIcon from "../../assets/images/addtocart-icon.svg";
 import { Link } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { ADD } from "../../redux/actions/action";
 
 const Main = () => {
@@ -196,6 +196,10 @@ const Main = () => {
     setProducts(sortedProducts);
   };
 
+  const cartItemCount = useSelector((state) =>
+    state.cartreducer.carts.reduce((total, item) => total + item.qnty, 0)
+  );
+
   return (
     <>
       <div className={styles.mainContainer}>
@@ -254,7 +258,10 @@ const Main = () => {
               to="/viewcart"
               style={{ textDecoration: "none", color: "inherit" }}
             >
-              <button className={styles.viewCartBtn}>
+              <button
+                className={styles.viewCartBtn}
+                style={{ position: "relative" }}
+              >
                 <img
                   src={ViewCartSymbol}
                   alt=""
@@ -262,6 +269,20 @@ const Main = () => {
                   style={{ width: "15px", height: "auto", marginRight: "5px" }}
                 />
                 View Cart
+                <div
+                  style={{
+                    background: "red",
+                    borderRadius: "50%",
+                    fontSize: ".8rem",
+                    position: "absolute",
+                    padding: "2px",
+                    fontWeight: "bold",
+                    top: "-8px",
+                    right: "-6px",
+                  }}
+                >
+                  {cartItemCount}
+                </div>
               </button>
             </Link>
           </div>
