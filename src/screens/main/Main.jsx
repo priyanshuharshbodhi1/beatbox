@@ -46,6 +46,8 @@ const Main = () => {
 
   const [products, setProducts] = useState([]);
   const [isGridView, setIsGridView] = useState(true); // Initially set to grid view
+  // const [isLoading, setIsLoading] = useState(true);
+
 
   // products.forEach((obj) => {
   //   const price = obj.price;
@@ -159,22 +161,6 @@ const Main = () => {
     setSearchText(event.target.value);
   };
 
-  // useEffect(() => {
-  //   const fetchProducts = async () => {
-  //     try {
-  //       const response = await axios.get(
-  //         `${process.env.REACT_APP_API_BASE_URL}/products/search?search=${searchText}&type=${selectedType}&color=${selectedColor}&company=${selectedCompany}&price_gte=${selectedPrice[0]}&price_lte=${selectedPrice[1]}`
-  //       );
-  //       if (response.status === 200) {
-  //         setProducts(response.data.slice(0, 15)); // Get the first 15 elements
-  //       }
-  //     } catch (error) {
-  //       console.error("Error fetching products:", error);
-  //     }
-  //   };
-  //   fetchProducts();
-  // }, [searchText, selectedType, selectedColor, selectedCompany, selectedPrice]);
-
   const sortProducts = (sortBy) => {
     const sortedProducts = [...products];
     switch (sortBy) {
@@ -272,13 +258,18 @@ const Main = () => {
                 <div
                   style={{
                     background: "red",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    height: "10px",
+                    width: "10px",
                     borderRadius: "50%",
                     fontSize: ".8rem",
                     position: "absolute",
                     padding: "2px",
                     fontWeight: "bold",
-                    top: "-8px",
-                    right: "-6px",
+                    top: "-6px",
+                    right: "-4px",
                   }}
                 >
                   {cartItemCount}
@@ -390,114 +381,118 @@ const Main = () => {
               </select>
             </div>
           </div>
-          <div
-            className={`${styles.productDisplay} ${
-              isGridView ? styles.gridDisplay : styles.listDisplay
-            }`}
-          >
-            {isGridView
-              ? products.map((product) => (
-                  <Link
-                    to={`/product/${product._id}`}
-                    key={product._id}
-                    style={{ textDecoration: "none", color: "inherit" }}
-                    onClick={(event) => {
-                      if (
-                        !event.target.classList.contains(styles.addToCartIcon)
-                      ) {
-                        return;
-                      }
-                      if (!isLoggedIn) {
-                        event.preventDefault();
-                        navigate("/signup");
-                      } else {
-                        send(product);
-                      }
-                    }}
-                  >
-                    <div className={styles.productsGrid}>
-                      <div
-                        className={styles.productImage}
-                        style={{
-                          backgroundImage: `url(${product.images["1"]})`,
-                        }}
-                      >
-                        <img
-                          src={AddToCartIcon}
-                          alt=""
-                          className={styles.addToCartIcon}
-                        />
-                      </div>
-                      <div
-                        className={`${styles.productDetailsForGrid} ${styles.productDetails} `}
-                      >
+          {products.length === 0 ? (
+            <div style={{display:"flex", justifyContent:"center", alignItems:"center", paddingTop:"3.5rem"}}>Loading...</div>
+          ) : (
+            <div
+              className={`${styles.productDisplay} ${
+                isGridView ? styles.gridDisplay : styles.listDisplay
+              }`}
+            >
+              {isGridView
+                ? products.map((product) => (
+                    <Link
+                      to={`/product/${product._id}`}
+                      key={product._id}
+                      style={{ textDecoration: "none", color: "inherit" }}
+                      onClick={(event) => {
+                        if (
+                          !event.target.classList.contains(styles.addToCartIcon)
+                        ) {
+                          return;
+                        }
+                        if (!isLoggedIn) {
+                          event.preventDefault();
+                          navigate("/signup");
+                        } else {
+                          send(product);
+                        }
+                      }}
+                    >
+                      <div className={styles.productsGrid}>
                         <div
-                          className={`${styles.productName} ${styles.productNameForGrid}`}
+                          className={styles.productImage}
+                          style={{
+                            backgroundImage: `url(${product.images["1"]})`,
+                          }}
                         >
-                          {product.name}
+                          <img
+                            src={AddToCartIcon}
+                            alt=""
+                            className={styles.addToCartIcon}
+                          />
                         </div>
-                        <div className={styles.productPrice}>
-                          Price - &#x20B9;
-                          {product.price}
-                          {/* {parseInt(product.price).toLocaleString("en-IN")} */}
-                        </div>
-                        <div className={styles.productColorAndType}>
-                          {product.color} | {product.type}
+                        <div
+                          className={`${styles.productDetailsForGrid} ${styles.productDetails} `}
+                        >
+                          <div
+                            className={`${styles.productName} ${styles.productNameForGrid}`}
+                          >
+                            {product.name}
+                          </div>
+                          <div className={styles.productPrice}>
+                            Price - &#x20B9;
+                            {product.price}
+                            {/* {parseInt(product.price).toLocaleString("en-IN")} */}
+                          </div>
+                          <div className={styles.productColorAndType}>
+                            {product.color} | {product.type}
+                          </div>
                         </div>
                       </div>
-                    </div>
-                  </Link>
-                ))
-              : products.map((product) => (
-                  <Link
-                    to={`/product/${product._id}`}
-                    key={product._id}
-                    style={{ textDecoration: "none", color: "inherit" }}
-                    onClick={(event) => {
-                      if (
-                        event.target.classList.contains(styles.addToCartIcon)
-                      ) {
-                        event.preventDefault();
-                        send(product);
-                      }
-                    }}
-                  >
-                    <div className={styles.productItem}>
-                      <div
-                        className={styles.productImage}
-                        style={{
-                          backgroundImage: `url(${product.images["1"]})`,
-                        }}
-                      >
-                        <img
-                          src={AddToCartIcon}
-                          alt=""
-                          className={styles.addToCartIcon}
-                          onClick={(event) => event.preventDefault()}
-                        />
+                    </Link>
+                  ))
+                : products.map((product) => (
+                    <Link
+                      to={`/product/${product._id}`}
+                      key={product._id}
+                      style={{ textDecoration: "none", color: "inherit" }}
+                      onClick={(event) => {
+                        if (
+                          event.target.classList.contains(styles.addToCartIcon)
+                        ) {
+                          event.preventDefault();
+                          send(product);
+                        }
+                      }}
+                    >
+                      <div className={styles.productItem}>
+                        <div
+                          className={styles.productImage}
+                          style={{
+                            backgroundImage: `url(${product.images["1"]})`,
+                          }}
+                        >
+                          <img
+                            src={AddToCartIcon}
+                            alt=""
+                            className={styles.addToCartIcon}
+                            onClick={(event) => event.preventDefault()}
+                          />
+                        </div>
+                        <div className={styles.productDetails}>
+                          <div className={styles.productName}>{product.name}</div>
+                          <div className={styles.productPrice}>
+                            Price - &#x20B9;
+                            {product.price}
+                            {console.log(product.price)}{" "}
+                            {/* {parseInt(product.price).toLocaleString("en-IN")} */}
+                          </div>
+                          <div className={styles.productColorAndType}>
+                            {product.color} | {product.type}
+                          </div>
+                          <div className={styles.ProductTagline}>
+                            {product.tagline}
+                          </div>
+                          <button className={styles.productDetailsBtn}>
+                            Details
+                          </button>
+                        </div>
                       </div>
-                      <div className={styles.productDetails}>
-                        <div className={styles.productName}>{product.name}</div>
-                        <div className={styles.productPrice}>
-                          Price - &#x20B9;
-                          {product.price}
-                          {console.log(product.price)}{" "}
-                          {/* {parseInt(product.price).toLocaleString("en-IN")} */}
-                        </div>
-                        <div className={styles.productColorAndType}>
-                          {product.color} | {product.type}
-                        </div>
-                        <div className={styles.ProductTagline}>
-                          {product.tagline}
-                        </div>
-                        <button className={styles.productDetailsBtn}>
-                          Details
-                        </button>
-                      </div>
-                    </div>
-                  </Link>
-                ))}
-          </div>
+                    </Link>
+                  ))}
+            </div>
+          )}
         </div>
         <EndContainerComponent />
       </div>
