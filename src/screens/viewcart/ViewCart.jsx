@@ -103,7 +103,8 @@ const ViewCart = () => {
                   className={styles.emptyCart}
                   style={{ textAlign: "center", padding: "3rem .4rem" }}
                 >
-                  Your Cart is Empty
+                  Your Cart is Empty. <br />{isLoggedIn ? "" : <>Please <Link to="/login">Login</Link> to add Items to Cart</>}
+
                 </div>
               ) : (
                 getdata.map((product, index) => (

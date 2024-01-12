@@ -1,5 +1,7 @@
 .container{
-  min-height: 100vh;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
 .header {
@@ -41,6 +43,7 @@
 
 .midContainer {
   padding: 1rem 6rem;
+  flex: 1;
 }
 
 .product {

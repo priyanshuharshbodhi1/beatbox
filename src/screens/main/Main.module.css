@@ -216,6 +216,13 @@
   border-radius: 50%;
   width: 35px;
   cursor: pointer;
+  border: 4px double transparent;
+
+}
+
+.addToCartIcon:hover {
+  /* background: #2e0052; */
+  border: 3px double rgb(241, 123, 102);
 }
 
 .productDetails {

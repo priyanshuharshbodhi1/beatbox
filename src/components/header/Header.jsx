@@ -10,7 +10,7 @@ const Header = () => {
     state.cartreducer.carts.reduce((total, item) => total + item.qnty, 0)
   );
 
-  console.log("cartItems", cartItemCount);
+  // console.log("cartItems", cartItemCount);
   return (
     <div className={styles.header}>
       <div className={styles.logo}>
@@ -35,6 +35,8 @@ const Header = () => {
           <div
             style={{
               background: "red",
+              height:"10px",
+              width: "10px",
               borderRadius: "50%",
               fontSize: ".8rem",
               position: "absolute",
@@ -42,6 +44,9 @@ const Header = () => {
               fontWeight: "bold",
               top: "-8px",
               right: "-6px",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
             }}
           >
             {cartItemCount}
